@@ -4,7 +4,7 @@ You can find here the slides and other relevant information used in the _Mathema
 
 Slides:
 
-- [Introduction](https://github.com/joseproenca/qit1718-mi/blob/master/slides/Q1.pdf)
+- [Introduction](https://github.com/joseproenca/qit1718-mi/raw/master/slides/Q1.pdf)
 - ...
 
 #### Bibliography
