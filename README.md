@@ -6,6 +6,7 @@ Slides:
 
 - [Introduction](https://github.com/joseproenca/qit1718-mi/raw/master/slides/Q1.pdf)
 - [Boolean expressions](https://github.com/joseproenca/qit1718-mi/raw/master/slides/Q2.pdf)
+- [Propositional Calculus](https://github.com/joseproenca/qit1718-mi/raw/master/slides/Q3.pdf)
 - ...
 
 #### Bibliography
