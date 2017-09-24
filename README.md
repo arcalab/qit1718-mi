@@ -9,6 +9,7 @@ Slides:
 - [Propositional Calculus](https://github.com/joseproenca/qit1718-mi/raw/master/slides/Q3.pdf)
 - [What is a logic?](https://github.com/joseproenca/qit1718-mi/raw/master/slides/Q4.pdf)
 - [Predicate Calculus](https://github.com/joseproenca/qit1718-mi/raw/master/slides/Q5.pdf)
+- [Set theory](https://github.com/joseproenca/qit1718-mi/raw/master/slides/Q6.pdf)
 - ...
 
 #### Bibliography
