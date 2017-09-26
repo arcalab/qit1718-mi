@@ -16,3 +16,7 @@ Slides:
 - A logical approach to discrete mathematics, David Gries and Fred Schneider, Springer, 1993.
 - Discrete mathematics, Kevin Ferland, Houghton Mifflin Company, 2009.
 - Naive Set Theory, Paul Halmos, 1960
+
+#### Contacts
+- José Proença - jose@proenca.org
+- Alexandre Madeira - madeira@ua.pt
