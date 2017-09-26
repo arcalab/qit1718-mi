@@ -18,5 +18,5 @@ Slides:
 - Naive Set Theory, Paul Halmos, 1960
 
 #### Contacts
-- José Proença - jose@proenca.org
-- Alexandre Madeira - madeira@ua.pt
+- José Proença - [jose@proenca.org](mailto:jose@proenca.org?subject=QualificaIT - Matemática para a Informática)
+- Alexandre Madeira - [madeira@ua.pt](mailto:madeira@ua.pt?subject=QualificaIT - Matemática para a Informática)
