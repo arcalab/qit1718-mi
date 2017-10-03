@@ -13,6 +13,9 @@ Slides:
 - [Functions & Relations](https://github.com/joseproenca/qit1718-mi/raw/master/slides/Q7.pdf)
 - ...
 
+Example of a previous test:
+- [Test given in 2015 (in Portuguese)](https://github.com/joseproenca/qit1718-mi/raw/master/extra/QualificaIT-MI-teste-2015.pdf)
+
 #### Bibliography
 - A logical approach to discrete mathematics, David Gries and Fred Schneider, Springer, 1993.
 - Discrete mathematics, Kevin Ferland, Houghton Mifflin Company, 2009.
