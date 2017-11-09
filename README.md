@@ -1,6 +1,6 @@
 ## Mathematics for Computer Science - Qualifica IT
 
-You can find here the slides and other relevant information used in the _Mathematics for Computer Science_ course, given within the Qualifica IT program in Braga, Sep-Oct 2017.
+You can find here the slides and other relevant information used in the _Mathematics for Computer Science_ course, given within the [Qualifica IT]("https://www.eng.uminho.pt/pt/Estudar/Formacao-Continua/Cursos-de-Formacao-Especializada/Paginas/Programação-de-Computadores-para-Reconversão-de-Licenciados-(Qualifica-IT).aspx") program in Braga, Sep-Oct 2017.
 
 Slides:
 
