@@ -64,7 +64,7 @@ Lino Urbano | 15.8 | P
 Luís Vilas Boas | 14.2 | P
 Maria João Sousa | 2.1 | R
 Maria Vieira | 16.2 | P
-Mariana Pais | 79.5 | P
+Mariana Pais | 13.5 | P
 Marisa Conceição | 17.3 | P
 Olga Barros | 11.9 | P
 Paulo Mendes | 12.9 | P
