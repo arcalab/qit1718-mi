@@ -70,7 +70,7 @@ Olga Barros | 11.9 | P
 Paulo Mendes | 12.9 | P
 Pedro Ferreira | 15.3 | P
 Ramiro Padrão | 19.8 | P
-Raquel Ferreira | 7.4 | R
+Raquel Ferreira | 7.4 | C
 Ricardo Azevedo | 16.8 | P
 Sandra Ferreira | 9.9 | P
 Simone Sarges | 1.9 | R
@@ -80,9 +80,7 @@ Susana Saraiva | 14.8 | P
 Tatiana Graça | 12.7 | P
 
 
-(P: Passed, R: Not passed, D: not evaluated)
-
-`*` - contact the lecturers
+(P: Passed, R: Not passed, D: not evaluated, C: contact the lecturers)
 
 
 #### Contacts
