@@ -11,7 +11,7 @@ Slides:
 - [Predicate Calculus](https://github.com/joseproenca/qit1718-mi/raw/master/slides/Q5.pdf)
 - [Set theory](https://github.com/joseproenca/qit1718-mi/raw/master/slides/Q6.pdf)
 - [Functions & Relations](https://github.com/joseproenca/qit1718-mi/raw/master/slides/Q7.pdf)
-- ...
+- [Orders & Induction](https://github.com/joseproenca/qit1718-mi/raw/master/slides/Q8.pdf)
 
 Example of a previous test:
 - [Test given in 2015 (in Portuguese)](https://github.com/joseproenca/qit1718-mi/raw/master/extra/QualificaIT-MI-teste-2015.pdf)
