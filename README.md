@@ -24,6 +24,9 @@ Example of a previous test:
 
 #### Evaluation
 
+- Final exam: 13 Dec 2017, 14h.
+- Grades (draft):
+
 Name | Grade | Result
 -----|-------| ------
 Abílio Vieira | 11.1 | P
