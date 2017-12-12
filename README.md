@@ -24,7 +24,7 @@ Example of a previous test:
 
 #### Evaluation
 
-- Final exam: *13 Dec 2017, 14h*.
+- Final exam: _13 Dec 2017, ~~14h~~ 16h_.
 - Grades (draft):
 
 Name | Grade | Result
