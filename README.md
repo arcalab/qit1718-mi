@@ -25,7 +25,20 @@ Example of a previous test:
 #### Evaluation
 
 - Final exam: *13 Dec 2017, 14h*.
-- Grades (draft):
+
+- Grades (final exam):
+
+Name | Grade | Result
+-----|-------| ------
+Ana Paula Oliveira  | 13.25 | P
+Elisabete Quintas | 6.42 | R
+Gabriel Mendes  | 11.50 | P
+Jorge Brito | 9.50 | P
+Maria João Sousa  | 9.50 | P
+Raquel Ferreira | 9.52 | P
+
+
+- Grades (test):
 
 Name | Grade | Result
 -----|-------| ------
