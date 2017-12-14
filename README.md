@@ -30,12 +30,12 @@ Example of a previous test:
 
 Name | Grade | Result
 -----|-------| ------
-Ana Paula Oliveira  | 13.25 | P
-Elisabete Quintas | 6.42 | R
-Gabriel Mendes  | 11.50 | P
-Jorge Brito | 9.50 | P
-Maria João Sousa  | 9.50 | P
-Raquel Ferreira | 9.52 | P
+Ana Paula Oliveira  | 13.2 | P
+Elisabete Quintas | 6.4 | R
+Gabriel Mendes  | 11.5 | P
+Jorge Brito | 9.5 | P
+Maria João Sousa  | 9.5 | P
+Raquel Ferreira | 9.5 | P
 
 
 - Grades (test):
