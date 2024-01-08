@@ -1,0 +1,116 @@
+%\documentclass[trans]{beamer}
+\documentclass{beamer}
+
+\usetheme{Singapore}
+\setbeamercovered{transparent} 
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{src/prooftree}
+\usepackage[all]{xy}
+%\input{cores.mac}
+%\def\bblue#1{\dkb{#1}}
+\def\igual{=}
+\def\caixa#1{\medskip
+  \begin{center}
+  \fbox{\begin{minipage}{0.9\textwidth}\protect{#1}\end{minipage}}
+  \end{center}}
+
+\def\st{\, .\,}
+\def\hdd{\fun{hd}}
+\def\tll{\fun{tl}}
+\def\swap{\fuc{swap}}
+\def\twist{\fuc{twist}}
+  %------ using color ---------------------------------------------------------
+\usepackage{color}
+%input{rgb}
+\def\black{\color{black}}
+\def\blue{\color{blue}}
+\def\red{\color{red}}
+
+\def\true{\fuc{true}}
+\def\false{\fuc{false}}
+%\def\dimp{\mathbin{\Leftrightarrow}}
+\def\dimp{\mathbin{\equiv}}
+
+\def\imp{\mathbin{\Rightarrow}}
+\def\rimp{\mathbin{\Leftarrow}}
+\def\limp{\mathbin{\multimap}}
+\newcommand{\sse}{\mathbin{\, \operatorname{\textsf{iff}} \,}}
+\def\e{\mathbin{\wedge}}
+\def\ou{\mathbin{\vee}}
+
+  
+  \input{src/newmacros.mac}
+  
+  
+\title{
+	Mathematics for Computer Science
+}
+\author{ Jos\'{e} Proen\c{c}a \& Alexandre Madeira\\ (slides from Luis Soares Barbosa)\\ ~}
+% \author{ Luis Soares Barbosa\\ ~}
+
+\institute{
+  \includegraphics[height=1.5cm]{img/HASLab-logo} \hspace{1cm}
+  \includegraphics[height=1.5cm]{img/um} \hspace{1cm} 
+ % \includegraphics[height=1.5cm]{UNU-EGOV}
+ }
+%\institute{HASLab INESC TEC \& Universidade do Minho \& UNU-EGOV - United Nations University \\
+%Braga, Portugal}
+\date{
+\begin{tabular}{c}
+\\
+	\textbf{Orders \& Induction} \\ September-October,  2017
+\\
+\end{tabular}
+}
+
+\begin{document}
+
+\frame[plain]{\titlepage}
+
+
+
+\begin{slide}{Orders}
+
+\begin{itemize}
+\item preorder
+\item partial order
+\item linear or total order
+\end{itemize}
+\end{slide} 
+
+\begin{slide}{Special elements in $(A,\sqsubseteq)$}
+
+\begin{itemize}
+\item least (and greatest) element: 
+$$\forall_{x \in A} \st m \sqsubseteq x$$
+\item minimal (and maximal) element: 
+$$\forall_{x \in A} \st x \sqsubseteq m \imp x = m $$
+\item lower (and upper) bound of a subset $S \subseteq A$: is an element $z \in A$ such that 
+$$\forall_{s \in S} \st z \sqsubseteq m $$
+\end{itemize}
+\end{slide} 
+
+\begin{slide}{Lattices}
+
+\begin{itemize}
+\item Lattices are partial orders in which every element has a \emph{lub} and \emph{glb}
+\item \emph{lub} - least upper bound (supremo)
+\item \emph{glb} - greatest lower bound (infimo)
+\end{itemize}
+\end{slide} 
+
+\begin{slide}{Well-founded orders and induction}
+
+\begin{itemize}
+\item A \emph{well founded order} is a partial order in which every non empty subset has a minimal element
+\item ... this is the structure required for induction to be defined
+\item Example: induction over natural numbers
+\item Example: induction over sets
+\item Example: induction over sequences
+\end{itemize}
+\end{slide} 
+
+\end{document}
+
+I

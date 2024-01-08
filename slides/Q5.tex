@@ -1,0 +1,421 @@
+%\documentclass[trans]{beamer}
+\documentclass{beamer}
+
+\usetheme{Singapore}
+\setbeamercovered{transparent} 
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{src/prooftree}
+
+\usepackage[all]{xy}
+%\input{cores.mac}
+%\def\bblue#1{\dkb{#1}}
+\def\igual{=}
+\def\caixa#1{\medskip
+  \begin{center}
+  \fbox{\begin{minipage}{0.9\textwidth}\protect{#1}\end{minipage}}
+  \end{center}}
+
+\def\st{\, .\,}
+\def\hdd{\fun{hd}}
+\def\tll{\fun{tl}}
+\def\swap{\fuc{swap}}
+\def\twist{\fuc{twist}}
+  %------ using color ---------------------------------------------------------
+\usepackage{color}
+%input{rgb}
+\def\black{\color{black}}
+\def\blue{\color{blue}}
+\def\red{\color{red}}
+
+\def\true{\fuc{true}}
+\def\false{\fuc{false}}
+%\def\dimp{\mathbin{\Leftrightarrow}}
+\def\dimp{\mathbin{\equiv}}
+
+\def\imp{\mathbin{\Rightarrow}}
+\def\rimp{\mathbin{\Leftarrow}}
+\def\limp{\mathbin{\multimap}}
+\newcommand{\sse}{\mathbin{\, \operatorname{\textsf{iff}} \,}}
+\def\e{\mathbin{\wedge}}
+\def\ou{\mathbin{\vee}}
+
+  
+  \input{src/newmacros.mac}
+  
+  
+\title{
+	Mathematics for Computer Science
+}
+\author{ Jos\'{e} Proen\c{c}a \& Alexandre Madeira\\ (slides from Luis Soares Barbosa)\\ ~}
+
+\institute{
+  \includegraphics[height=1.5cm]{img/HASLab-logo} \hspace{1cm}
+  \includegraphics[height=1.5cm]{img/um} \hspace{1cm} 
+ % \includegraphics[height=1.5cm]{UNU-EGOV}
+ }
+%\institute{HASLab INESC TEC \& Universidade do Minho \& UNU-EGOV - United Nations University \\
+%Braga, Portugal}
+\date{
+\begin{tabular}{c}
+\\
+	\textbf{Predicate calculus} \\  September-October,  2017
+\\
+\end{tabular}
+}
+
+\begin{document}
+
+\frame[plain]{\titlepage}
+
+
+
+\begin{slide}{Introduction}
+
+Predicate, or first order  logic is an extension of propositional logic that \dkb{allows the use of variables of types other than Boolean}.
+\vspace{0.5cm}
+
+A  formula is a Boolean expression in which some Boolean variables may have been replaced by:
+\begin{itemize}
+\item Predicates, which are \dkb{relations} whose arguments may be of arbitrary types.
+The relation names (e.g. equal, less ) are called predicate symbols. Infix notation is sometimes used for predicates, as in $x \leq y$ .
+\item Universal and existential \dkb{quantification}
+\end{itemize}
+
+\vspace{0.5cm}
+
+\fbox{Examples}
+
+
+\end{slide} 
+
+
+\begin{slide}{Types}
+
+... as formalization of the \dkb{domains of discourse}
+
+\begin{itemize}
+\item Examples: $x : \N$, $p : \B$, $\mathsf{table}: Att_1 \times Att_2 \times Att_3$
+\item Place additional restrictions on the definition of  textual substitution (in $E [x:=F]$ $x$ and $F$ must have the same type) and equality.
+\item Main issue in \dkb{programming languages}: from \dkb{untyped} to \dkb{strongly typed} languages (in which a type is assigned to each expression by  syntactic rules)
+\item overloading, polymorphism and subtyping
+\end{itemize}
+\end{slide} 
+
+
+
+\begin{slide}{Quantification}
+
+$$
+\forall_{x:\N} \st \mathsf{even}(x) \imp \mathsf{odd}(x+1)
+$$
+or
+$$
+\exists_{x:\N} \st (12 < x \leq 999) \land \mathsf{prime}(x)
+$$
+or
+$$
+\forall_{x:\N} \st (\exists_{y:\N} \st (y \geq 2 \e y \neq x) \land (x~mod~y = 0)) \imp \neg \mathsf{prime}(x)
+$$
+
+
+
+\begin{itemize}
+\item free variables and substitution!
+\end{itemize}
+\end{slide} 
+
+
+\begin{slide}{Quantification}
+
+\begin{block}{A handier notation}
+
+$$
+\rcbforall{x{:}\N}{\mathsf{even}(x)}{\mathsf{odd}(x+1)}
+$$
+\\[-5mm]
+or
+$$
+\rcbexistsp{x{:}\N}{12 < x \leq 999}{\mathsf{prime}(x)}
+$$
+\\[-5mm]
+or
+\\[-5mm]
+$$
+\rcbforall{x{:}\N}{\rcbexistsp{y{:}\N}{y \geq 2 \e y \neq x}{\mathsf{rem}(x,y) = 0}}{\neg \mathsf{prime}(x)}
+$$
+\end{block}
+
+\begin{block}{Syntax}
+~\\[-11mm]
+$$ 
+E\; \::=\; \true \mid \false \mid v \mid %(E) \mid \neg E \mid E \land E \mid E \lor E \mid E \implies E
+           \ldots \mid \rcb{\Theta}{x{:}X}{E}{E} \mid pred(\overline{E})
+$$
+\noindent
+where $\Theta \in \{\forall,\exists\}$, X belongs to a set of domains of discourse, and $pred(\overline{E})$ are predicates applied to expressions.
+% $\overline{D}$ in the domains of discourse.
+\end{block}
+\end{slide}
+
+% \begin{slide}{Going generic}
+
+% $$
+% \rcb{\Sigma}{i:\N}{1<i<100}{i^2}
+% $$
+% vs 
+% $$\Sigma_{i=1}^{100} \, i^2$$
+
+% \begin{block}{In general}
+
+% $$
+% \rcb{\Theta}{x:X}{R}{P}
+% $$
+% to express: \dkb{apply $\theta$ to the values $P$ computed for all $x$ in $X$ satisfying $R$}, providing $P$ is of type $M$  and $(M,\theta,u)$  forms an Abelian  \dkb{monoid}.
+% \end{block}
+% \end{slide}
+
+% \begin{slide}{Distributed operations}
+
+% Every binary, commutative operation $\theta$ defined on a \dkb{monoid} (i.e. associative and with an identity element) can be extended to a \dkb{distributed} (or \dkb{reduced}) operation $\Theta$ acting on a set.
+
+%  \begin{block}{Examples}
+% \begin{itemize}
+% \item $(\B, \e, \true)$ 
+% \item $(\B, \ou, \false)$ 
+% \item $(\N, +, 0)$
+% \item $(\N, *, 1)$
+% \item $(\pow(X), \cup, \emptyset)$
+% \end{itemize}
+% \end{block}
+% \end{slide} 
+
+% \begin{slide}{Going generic}
+
+% \begin{block}{Some general rules for $(M,\theta,u)$}
+
+% \begin{align*}
+% \text{(empty range)} && & \rcb{\Theta}{x:X}{\false}{P} = u\\
+% \text{(one point)} && & \rcb{\Theta}{x:X}{x =E}{P} = P[x:=E] \\
+% \text{(distributivity)} && & \rcb{\Theta}{x:X}{R}{P} \, \theta\,  \rcb{\Theta}{x:X}{R}{Q} = \\ &&& \hspace{1cm} \rcb{\Theta}{x:X}{R}{P \theta Q}\\
+% \text{(range split)} && & \rcb{\Theta}{x:X}{R \ou S}{P} = \\ &&& \hspace{1cm}\rcb{\Theta}{x:X}{R}{P} \, \theta\, \rcb{\Theta}{x:X}{S}{P} \\
+% \text{(interchange)} && & \rcb{\Theta}{x:X}{R}{\rcb{\Theta}{y:Y}{Q}{P}} = \\ &&& \hspace{1cm}  \rcb{\Theta}{y:Y}{Q}{\rcb{\Theta}{x:X}{R}{P}}\\
+% \text{(nesting)} && & \rcb{\Theta}{x:X, y:Y}{R \e Q}{P} = \\ &&& \hspace{1cm}  \rcb{\Theta}{x:X}{R}{\rcb{\Theta}{y:Y}{Q}{P}} 
+% \end{align*}
+% \end{block}
+% \end{slide}
+
+
+
+% \begin{slide}{Universal and existential quantification}
+
+% \begin{block}{}
+% \begin{itemize}
+% \item $\forall$ is \dkb{generalised conjunction}: $(\B, \e, \true)$ forms a monoid.
+% \item $\exists$ is \dkb{generalised disjunction}: $(\B, \ou, \false)$ forms a monoid.
+% \end{itemize}
+% \end{block}
+% \end{slide} 
+
+\begin{slide}{Axioms for Predicate Calculus}
+
+% \begin{block}{Some general rules for $(M,\theta,u)$}
+\begin{block}{Let ~~($\Theta = \forall$ and $\theta = {\land}$) ~~or~~ ($\Theta = \exists$ and $\theta = {\lor}$)} 
+
+\begin{align*}
+\text{(one point)} && & \rcb{\Theta}{x{:}X}{x \dimp E}{P} ~\dimp~ P[x:=E] \\
+% if x not in E
+\text{(distributivity)} && & \rcb{\Theta}{x{:}X}{R}{P} \, \theta\,  \rcb{\Theta}{x{:}X}{R}{Q} ~\dimp~ \\ &&& \hspace{1cm} \rcb{\Theta}{x{:}X}{R}{P \,\theta\, Q}\\
+% if R finite  or P,Q boolean - OK
+\text{(range split)} && & \rcb{\Theta}{x{:}X}{R \ou S}{P} ~\dimp~ \\ &&& \hspace{1cm}\rcb{\Theta}{x{:}X}{R}{P} \, \theta\, \rcb{\Theta}{x{:}X}{S}{P} \\
+\text{(interchange)} && & \rcb{\Theta}{x{:}X}{R}{\rcb{\Theta}{y{:}Y}{Q}{P}} ~\dimp~ \\ &&& \hspace{1cm}  \rcb{\Theta}{y{:}Y}{Q}{\rcb{\Theta}{x{:}X}{R}{P}}\\
+\text{(nesting)} && & \rcb{\Theta}{x{:}X, y{:}Y}{R \e Q}{P} ~\dimp~ \\ &&& \hspace{1cm}  \rcb{\Theta}{x{:}X}{R}{\rcb{\Theta}{y{:}Y}{Q}{P}} 
+\end{align*}
+\end{block}
+\end{slide}
+
+
+\begin{slide}{Some rules for $\forall$ and $\exists$}
+
+% ... on top of the general rules above:
+% \vspace{1cm}
+\begin{align*}
+\text{(empty range-$\forall$)} && & \rcb{\forall}{x{:}X}{\false}{P} ~\dimp~ \true\\
+\text{(empty range-$\exists$)} && & \rcb{\exists}{x{:}X}{\false}{P} ~\dimp~ \false\\
+\text{(trading-$\forall$)} && & \rcbforall{x{:}X}{R}{P} ~\dimp~ \rcbforall{x{:}X}{}{R \imp P}\\
+\text{($\ou$ dist over $\forall$)} && & P \ou \rcbforall{x{:}X}{R}{Q} ~\dimp~ \rcbforall{x{:}X}{R}{P \ou Q}\\
+\text{(de Morgan)} && & \rcbexistsp{x{:}X}{R}{\neg P} ~\dimp~ \neg \rcbforall{x{:}X}{R}{P}
+\end{align*}
+
+\begin{block}{Recall \dkb{de Morgan laws} from propositional calculus:}
+$$
+\neg (p \e q) \dimp (\neg p \ou \neg q)
+$$
+and
+$$
+\neg (p \ou q) \dimp (\neg p \e \neg q)
+$$
+\end{block}
+\end{slide}
+%
+%% trading \exists:
+% ⟨∃x:X : R : P⟩ ≡ ⟨∃x:X :: R /\ P⟩
+% ⟨∃x:X : R : P⟩ = ~~⟨∃x:X : R : P⟩ = ~⟨forall x:X : R : ~P⟩
+%  = ~⟨forall x:X :  :R => ~P⟩ = ~⟨forall x:X :: R \/ ~P = ~P⟩
+%  =  ⟨exists x:X :: ~(R\/~P = ~P)⟩
+% --- ~(R\/~P = ~P) = ~(R\/~P = ~P\/F)  = ~(~P\/(R = F)) = (P/\~(R = F)) = P/\R
+
+
+\begin{slide}{Exercises}
+\begin{align*}
+\text{(trading-$\exists$)} && & \rcbexistsp{x{:}X}{r}{p} ~\dimp~ \rcbexistsp{x{:}X}{}{r \land p}
+\\
+\text{($\e$ dist over $\exists$)} && & p \e \rcbexistsp{x{:}X}{r}{q} ~\dimp~ \rcbexistsp{x{:}X}{r}{p \e q}
+\\
+\text{(de Morgan-var)} && & \rcbforall{x{:}X}{r}{\neg p} ~\dimp~ \neg \rcbexistsp{x{:}X}{r}{p}
+\end{align*}
+%
+\\[10mm]
+(Hint: prove and use the theorem ``$\lnot\lnot p \dimp p$'')
+\end{slide}
+
+\begin{slide}{Predicate calculus and theories}
+\begin{itemize}
+\item The \dkb{pure predicate calculus} includes the axioms of propositional calculus, together with the axioms for quantifications 
+\item The inference rules  are Substitution, Transitivity, Leibniz and its variant for quantification 
+\item In the pure predicate calculus, the \dkb{relation symbols are uninterpreted} (except for equality), so the logic provides no specific rules for manipulating them. 
+\item With these symbols uninterpreted, we can develop general rules for manipulation that are sound no matter what meanings we ascribe to the function symbols. Thus, the pure predicate calculus is sound in all domains that may be of interest.
+\end{itemize}
+\end{slide}
+
+\begin{slide}{Predicate calculus and theories}
+Adding axioms that give meanings to some of the (uninterpreted) relational symbols gives rise to a \dkb{theory} 
+
+\begin{itemize}
+\item The theory of integers (with $+,-,*, \leq$, etc and the usual axioms)
+\item The theory of sets (with $\cup, \cap, \in, \subseteq$, etc and the usual axioms)
+\end{itemize}
+\end{slide}
+
+
+\begin{slide}{Modelling}
+\begin{itemize}
+\item Modelling a statement in the \dkb{propositional calculus} requires associating boolean variables with the subpropositions of the statement. 
+\item Modelling a statement in the \dkb{predicate calculus} requires defining \dkb{predicate symbols} and \dkb{other functions} to capture relationships between variables.
+\end{itemize}
+
+\fbox{Examples}
+\begin{itemize}
+\item \emph{Every student took one mathematics class and passed one programming}
+\item \emph{Every student who passed a mathematics class with grade 15 or higher got a diploma of merit}
+\end{itemize}
+
+\end{slide}
+
+
+
+\begin{slide}{Modelling exercises\footnote{from \url{https://www.zweigmedia.com/RealWorld/logic/logic7.html}}}
+Let $P$ be the set of all planets, $earth(x)$ mean ``x is an earth-like planet.'', and 
+$life(x)$ mean ``x supports life.''\\
+What is the correct interpretation of each of the following?
+\begin{enumerate}
+  \item $\rcb{\forall}{x{:}P}{life(x)}{earth(x)}$
+  \item $\rcb{\forall}{x{:}P}{}{earth(x)} \lor \rcb{\forall}{x{:}P}{}{life(x)}$
+  \item $\rcb{\forall}{x{:}P}{}{earth(x) \lor \lnot earth(x)}$
+  \item $\rcb{\forall}{x{:}P}{}{earth(x)} \lor \rcb{\forall}{x{:}P}{}{\lnot earth(x)}$
+  \item $\lnot\rcb{\forall}{x{:}P}{}{earth(x) \lor life(x)}$
+\end{enumerate}
+%\rcb{\exists}{x{:}X}{\false}{P}
+\end{slide}
+
+\begin{slide}{Modelling exercises}
+\begin{itemize}
+  \item All men are mortal. Socrates is a man.\\Therefore, Socrates is mortal.
+  \item For all numbers $x$, if x is greater than 1, then x is greater than~0.
+  \item The square of every negative integer is positive.
+  \item Not every integer is positive.
+  \item No positive integer is negative.
+  \item All integers are positive or no integers are positive.
+  %%
+\end{itemize}
+\end{slide}
+
+\begin{slide}{Modelling exercises}
+Let $P$ be the set of all planets, $A$ the set of all astronauts, and $travel(x,y)$ mean ``$x$ will travel to $y$''.\\
+\begin{itemize}
+  \item Every astronaut will travel to at least one planet.
+  \item Some astronauts will travel to every planet.
+  \item Other astronauts will travel to no planets.
+  \item $\rcb{\forall}{y{:}P}{}{\rcb{\exists}{x{:}A}{}{travel(x,y)}}$
+  \item $\rcb{\forall}{y{:}P}{}{\rcb{\exists}{x{:}A}{}{\lnot travel(x,y)}}$
+\end{itemize}
+\end{slide}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%
+\begin{slide}{Going generic}
+
+$$
+\rcb{\Sigma}{i{:}\N}{1<i<100}{i^2}
+$$
+vs 
+$$\Sigma_{i=1}^{100} \, i^2$$
+
+\begin{block}{In general}
+
+$$
+\rcb{\Theta}{x:X}{R}{P}
+$$
+to express: \dkb{apply $\theta$ to the values $P$ computed for all $x$ in $X$ satisfying $R$}, providing $P$ is of type $M$  and $(M,\theta,u)$  forms an Abelian  \dkb{monoid}.
+\end{block}
+\end{slide}
+
+
+\begin{slide}{Universal and existential quantification}
+
+\begin{block}{}
+\begin{itemize}
+\item $\forall$ is \dkb{generalised conjunction}: $(\B, \e, \true)$ forms a monoid.
+\item $\exists$ is \dkb{generalised disjunction}: $(\B, \ou, \false)$ forms a monoid.
+\end{itemize}
+\end{block}
+\end{slide} 
+
+
+\begin{slide}{Distributed operations $\Theta$}
+
+Every binary, commutative operation $\theta$ defined on a \dkb{monoid} (i.e. associative and with an identity element) can be extended to a \dkb{distributed} (or \dkb{reduced}) operation $\Theta$ acting on a set.
+
+ \begin{block}{Examples}
+\begin{itemize}
+\item $(\B, \e, \true)$ 
+\item $(\B, \ou, \false)$ 
+\item $(\N, +, 0)$
+\item $(\N, *, 1)$
+\item $(\pow(X), \cup, \emptyset)$
+\end{itemize}
+\end{block}
+\end{slide} 
+
+\begin{slide}{Going generic}
+
+\begin{block}{Some general rules for $(M,\theta,u)$}
+
+\begin{align*}
+\text{(empty range)} && & \rcb{\Theta}{x{:}X}{\false}{P} = u\\
+\text{(one point)} && & \rcb{\Theta}{x{:}X}{x =E}{P} = P[x{:}=E] \\
+\text{(distributivity)} && & \rcb{\Theta}{x{:}X}{R}{P} \, \theta\,  \rcb{\Theta}{x{:}X}{R}{Q} = \\ &&& \hspace{1cm} \rcb{\Theta}{x{:}X}{R}{P \theta Q}\\
+\text{(range split)} && & \rcb{\Theta}{x{:}X}{R \ou S}{P} = \\ &&& \hspace{1cm}\rcb{\Theta}{x{:}X}{R}{P} \, \theta\, \rcb{\Theta}{x{:}X}{S}{P} \\
+\text{(interchange)} && & \rcb{\Theta}{x{:}X}{R}{\rcb{\Theta}{y:Y}{Q}{P}} = \\ &&& \hspace{1cm}  \rcb{\Theta}{y:Y}{Q}{\rcb{\Theta}{x{:}X}{R}{P}}\\
+\text{(nesting)} && & \rcb{\Theta}{x{:}X, y{:}Y}{R \e Q}{P} = \\ &&& \hspace{1cm}  \rcb{\Theta}{x{:}X}{R}{\rcb{\Theta}{y{:}Y}{Q}{P}} 
+\end{align*}
+\end{block}
+\end{slide}
+
+
+
+
+\end{document}
+
+

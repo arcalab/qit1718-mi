@@ -1,0 +1,515 @@
+%------------------------------
+\def\conv#1{{#1}^{\circ}}
+\def\ximg#1#2{{#1}_{#2}}
+\def\ifdef{\mathbin{\triangleleft}}
+\def\bluenoindent{\noindent\hskip -.8ex} % spurious extra blank space
+%------------------------------
+\def\rmean#1{\mean{{\red #1}}}
+%usepackage[latin1]{inputenc}
+\def\lift#1{\stackrel.{#1}}
+\def\trans#1{\overline{#1\rule{0pt}{.6em}}}
+\def\longlift#1{\overbrace{#1}^.}
+\def\nJoin{\mathbin{\Join_{\!n}}}
+\def\pfunc#1{\rightharpoonup #1}
+\def\map#1#2{#1\pfunc{#2}}
+\def\downupsubseteq{\mbox{\rotatebox{90}{$\subseteq$}}}
+\def\wider#1{~ #1 ~}
+%\def\equiv{\Leftrightarrow}
+%------ using color ---------------------------------------------------------
+\usepackage{color}
+%input{rgb}
+\def\black{\color{black}}
+\def\blue{\color{blue}}
+\def\red{\color{red}}
+%definecolor{myGray}{gray}{0.85}
+%def\laplace#1#2{*\txt{\mbox{ \fcolorbox{black}{myGray}{$\begin{array}{c}\mbox{#1}\\\\#2\\\\\end{array}$} }}}
+%----------------------------------------------------------------------------
+\def\longlarrow#1#2#3{\xymatrix{ #3 && #1 \ar[ll]_-{#2} }}
+\def\longrarrow#1#2#3{\xymatrix{ #1 \ar[rr]^-{#2} && #3 }}
+\def\larrow#1#2#3{\xymatrix{ #3 & #1 \ar[l]_-{#2} }}
+\def\rarrow#1#2#3{\xymatrix{ #1 \ar[r]^-{#2} & #3 }}
+\def\slarrow#1#2#3{\xymatrix{ #3 & #1 \ar@_{->}[l]_-{#2} }}
+\def\srarrow#1#2#3{\xymatrix{ #1 \ar@^{->}[r]^-{#2} & #3 }}
+
+\def\Falg#1#2#3{\tuple{#1,\larrow{#3{#1}}{#2}{#1}}}
+
+\def\arLaw#1#2#3#4#5{
+\xymatrix{
+        #1      \ar@/^1pc/[rr]^-{#4} &
+        #5 &
+        #2      \ar@/^1pc/[ll]^-{#3}
+}}
+\def\arLeq#1#2#3#4{\arLaw{#1}{#2}{#3}{#4}\leq}
+\def\arIso#1#2#3#4{\arLaw{#1}{#2}{#3}{#4}\iso}
+
+\def\Iso#1#2#3#4{{#1}&\wider\iso&{#2}} % backup where arLeq breaks TeX
+\def\Leq#1#2#3#4{{#1}&\wider\leq&{#2}} % backup where arLeq breaks TeX
+
+%usepackage{myisolatin1}
+%------ using pstricks (rnode etc) ------------------------------------------
+%usepackage{pstricks,pst-node,pst-text,pst-3d}
+%def\source#1{\rnode{NA}{\pscirclebox[linecolor=red]{#1}}}
+%def\target#1{\rnode{NB}{\pscirclebox[linecolor=red]{#1}}\nccurve[linecolor=red,angleA=-30,angleB=-150]{<->}{NA}{NB}}
+%------ using xy ------------------------------------------------------------
+%\usepackage{jnoxy}
+\def\longrarrow#1#2#3{\xymatrix{ #1 \ar[rr]^-{#2} && #3 }}
+\def\slarrow#1#2#3{\xymatrix{ #3 & #1 \ar@_{->}[l]_-{#2} }}
+\def\srarrow#1#2#3{\xymatrix{ #1 \ar@^{->}[r]^-{#2} & #3 }}
+\def\longsrarrow#1#2#3{\xymatrix{ #1 \ar@^{->}[rr]^-{#2} && #3 }}
+\def\crflx#1{\Phi_{#1}}
+\def\altx#1#2{\mathopen{[}#1 \ ,#2\mathclose{]}}
+\def\X{\end{document}}
+%------------
+\def\rdivides{\mathbin\preceq}
+\def\ldivides{\mathbin\sqsubseteq}
+\def\N{I\!\!N}                             % Nat numbers
+\def\Z{Z\!\!\!Z}                           % Integers
+\def\name#1{\makebox[15ex][l]{\emph{#1:}} &&}
+\let\kons=\underline
+\def\selup#1#2#3{#3^{#1}_{#2}}
+\def\plus{\mathbin{\dagger}}
+\def\asor{\mathbin{|}}                    % A | B
+\def\enlist#1{\mathopen{[}#1\mathclose{]}} % [a,b,...z]
+\def\from{\mathbin{\leftarrow}}
+\def\listdef#1#2{\enlist{ ~ #1 \asor #2 \,}} % < f(x) | x <- l>
+\def\into{\mathbin{\rightarrow}}
+\let\seqdef=\listdef
+\def\Seq#1{{#1}^{\star}}                 % X*
+\def\fun#1{\mathbf{#1}}
+\def\f{\fun F}
+\def\b{\fun B}
+\def\ff#1{\ap\f{#1}}
+\def\hfilleqn#1#2{\hfill$#1\arrayin{#2}$\hfill~}
+\def\enset#1{\mathopen{ \{ }#1\mathclose{ \} }} % {a,b,...z}
+\def\mcond#1#2#3{#1 \rightarrow #2\ ,\ #3}
+\def\bang{{!}}
+\def\ap#1#2{#1\,#2}
+\def\pow#1{\ap{{\cal P}}{#1}}           \def\pow#1{{\cal P}#1} % P(X) redefined
+\def\unary#1#2{\def\arg{#2}\def\omisso{}\ifx\arg\omisso{\textsf{#1}}\else\ap{\textsf{#1}}{#2}\fi}
+\def\card#1{\unary{card}{#1}}             % card x
+\def\ker#1{\unary{ker}{#1}}  
+\def\img#1{\unary{img}{#1}}
+
+\def\len#1{\unary{len}{#1}}
+\def\inds#1{\unary{inds}{#1}}
+\def\dom#1{\unary{$\delta$}{#1}}
+\def\rng#1{\unary{$\rho$}{#1}}
+\let\ran=\rng
+\def\issat{\mathbin\vdash}
+\def\post#1{\hbox{post-}{#1}}              % post-#1
+\def\pre#1{\hbox{pre-}{#1}}                % pre-#1
+\def\presat{\mathbin{\issat_{pre}}}
+\def\postsat{\mathbin{\issat_{post}}}
+\def\laplace#1#2{*\txt{\fbox{$\begin{array}{c}\mbox{#1}\\\\#2\\\\\end{array}$}}}
+\def\PF{{\cal PF}}
+\def\ler#1{{\red \em [ read: #1]}}
+
+\long\def\CUT#1{\relax}
+\def\lsbwarning#1{\typeout{LSB Warning: #1 - document page [\thepage]}}
+\def\proj#1{\pi_{#1}}
+\def\sel#1{\sigma_{#1}}
+\def\deff{\stackrel{\rm def}{=}}          % Function definition symbol
+\def\setdef#1#2{\mathopen{\{} #1 \asor #2 \mathclose{\}}}
+\def\asor{\mathbin{|}}                    % A | B
+\def\p#1{\pi_{#1}}
+\def\fdep#1#2#3{#1 \mathbin{\stackrel{#2}{\rightarrow\/}} #3}
+\let\iso=\cong
+\def\mvdep#1#2#3{#1 \mathbin{\stackrel{\rule[-.8ex]{0pt}{0pt}#2}{\rightarrow\hskip-1.5ex\rightarrow\/}} #3}
+\def\gmvdep#1#2#3#4{#1 \mathbin{\stackrel{\rule[-.8ex]{0pt}{0pt}#2}{\rightarrow\hskip-1.5ex\rightarrow_{#4}\/}} #3}
+\def\sshylo#1#2{\mean{~#1,#2~}}
+\def\cata#1#2{\mathopen{(\!|}#1\mathclose{|\!)}_{{\fun #2}}}
+\def\split#1#2{\const{#1,#2}}
+\def\tuple#1{\mathopen{\langle}#1\mathclose{\rangle}} % <a,b,...z>
+\def\rdiv{\mathbin{\setminus}}
+\def\ldiv{\mathbin{/}}
+\def\true{\textsc{True}}
+\def\mean#1{\mathopen{[\![}#1\mathclose{]\!]}}
+\def\false{\textsc{False}}
+\newenvironment{lcbr}{\left\{\begin{array}{l}}{\end{array}\right.}
+
+\newenvironment{slide}[1]{\begin{frame}\frametitle{#1}}{\end{frame}}
+
+\def\rcbforall#1#2#3{\rcb\forall{#1}{#2}{#3}}
+\def\rcbexistsp#1#2#3{\rcb\exists{#1}{#2}{#3}}
+\def\rcbforallp#1#2#3{\rcb\forall{#1}{#2}{#3}}
+\def\rcb#1#2#3#4{\def\nothing{}\def\range{#3}\mathopen{\langle}#1 \, #2 \,\ifx\range\nothing::\else: \, #3 \,:\fi \,#4\mathclose{\rangle}}
+\def\Rcb#1#2#3#4{ \left\langle\xarrayin{#1 \ #2 \ : \\ #3 :\\ #4}\right\rangle}
+
+\def\rcbVdm#1#2#3#4{#1 \ #2 \ \comp #4}
+\def\deffVdm{\mathbin{\raisebox{.2em}{\tiny \ \underline{$\mathchar"3234$} \ }}}
+\def\mapVdm#1#2{#1 \mathbin{\tilde{\rightarrow}} #2}
+
+\def\igual{=}
+\def\const#1{\mathopen{\langle}#1\mathclose{\rangle}} % <a,b,...z>
+\def\comp{\mathbin{\cdot}}
+\def\implied{\mathbin\Leftarrow}
+\def\implies{\mathbin{\Rightarrow}}
+\def\arrayin#1{\begin{array}{rcl}#1\end{array}}
+\def\xarrayin#1{\begin{array}{cccccc}#1\end{array}}
+\def\aspas#1{``#1''}
+\def\ap#1#2{#1\,#2}
+\def\unary#1#2{\def\arg{#2}\def\omisso{}\ifx\arg\omisso{\textsf{#1}}\else\ap{\textsf{#1}}{#2}\fi}
+\def\card#1{\unary{card}{#1}}             % card x
+\def\ker#1{\unary{ker}{#1}}  
+\def\img#1{\unary{img}{#1}}
+\def\ijust#1#2{&#1& \rule{2em}{0pt} {\blue \{ \mbox{\rule[-.7em]{0pt}{1.8em} \small #2 \/} \} } \nonumber\\ && }
+\def\just#1#2{\\\ijust{#1}{#2}}
+\def\thinnedby{\mathbin{\upharpoonright}}
+\def\K{\mathbb{K}} % for fields
+\def\R{\mathbb{R}} \index{Números reais ($I\!\!R$)}
+\def\S{\mathbb{S}}
+\def\conj#1#2{\mathopen{\langle} #1, #2 \mathclose{\rangle}}
+\def\dist#1{{\cal D} #1}
+\def\emskip{\vskip 1em}
+\def\meither#1#2{\left[#1|#2\right]}        % Either
+\def\msplit#1#2{\left[\frac{#1}{#2}\right]} % Split
+\def\mspliteither#1#2#3#4{\left[\frac{#1}{#2}|\frac{#3}{#4}\right]}        % Either
+\def\set#1{{\cal P} #1}
+\def\ap#1#2{#1(#2)}
+\newcommand{\rinv}[1]{{#1}^{\bullet}}
+
+\newcommand{\fdec}[3]{#1: #2 \longrightarrow #3}
+\newcommand{\pdec}[3]{#1: #2 \rightharpoonup  #3}
+\newcommand{\rdec}[3]{#1: #2 \rightharpoonup  #3}
+\def\SING{\ensuremath{\boldsymbol{1}}}
+\def\apf#1#2{#1\; #2}  
+\def\tim{\fuc{T}}
+\def\onefuc{\fuc{Id}}
+\def\excp#1{#1 + \SING}
+\def\bim{\fuc{B}}
+\def\abim#1{\bim\, #1}
+\def\ppow{\ensuremath{\mathcal{P}}} 
+
+\def\fuc#1{\mathsf{#1}}
+\def\gold#1{{\goldenrod #1}}
+\def\dgold#1{{\blue #1}}
+\def\brw#1{{\brown #1}}
+\def\dkb#1{{\blue #1}}
+%\def\dkb#1{\textbf{\darkblue #1}}
+\def\gre#1{{\darkolivegreen #1}}
+\def\gry#1{{\gray #1}}
+\def\rdb#1{{\red #1}}
+\def\bblue#1{\dkb{#1}}
+
+
+
+\def\either#1#2{[#1,#2]}
+
+\def\mgen#1{\fuc{m}_{#1}}
+\def\ugen#1{\fuc{u}_{#1}}
+\def\cmcs{\fuc{i}}
+\def\zerol{\fuc{zl}}
+\def\zeror{\fuc{zr}}
+\def\distr{\fuc{dr}}
+\def\distl{\fuc{dl}}
+\def\assoc{\fuc{a}}
+\def\assocs{\fuc{a_*}}
+\def\assocm{\fuc{a_+}}
+\def\swap{\fuc{s}}
+\def\swaps{\fuc{s_*}}
+\def\swapm{\fuc{s_+}}
+\def\lunit{\fuc{l}}
+\def\runit{\fuc{r}}
+\def\lunits{\fuc{l_*}}
+\def\runits{\fuc{r_*}}
+\def\lunitm{\fuc{l_+}}
+\def\runitm{\fuc{r_+}}
+\def\rsrt{\tau_{r}}   % right and left strength
+\def\rsrtp#1{\tau_{r_{#1}}}   % right and left strength
+\def\lsrt{\tau_{l}}
+\def\lsrtp#1{\tau_{l_{#1}}}   % right and left strength
+\def\deltab{\delta}    
+\def\rpd{\delta_{r}}   % strength combination
+%\def\rpdp#1{\rpd_{#1}}  
+\def\rpdp#1{\delta{r_{#1}}}  
+\def\lpd{\delta_{l}}
+%\def\lpdp#1{\lpd_{#1}}  
+\def\lpdp#1{\delta{l_{#1}}}  
+\def\distp{\fuc{pdr}}
+\def\distpl{\fuc{pdl}}
+
+\def\qcomp{\mathbin{\boldsymbol{;}}}
+\def\qcom#1#2{#1\qcomp#2}
+
+\def\PR{\cat{Cp}}
+\def\PRSp{\cat{Cp}_{Sp}}
+\def\prcat#1{{\sf Cp_{#1}}}
+%\newcommand{\prhom}[2]{\PR_{\bim}(#1, #2)}
+\newcommand{\prhom}[2]{\PR(#1, #2)}
+%\newcommand{\prhoms}[2]{\PR_{\bim}(#1, #2)_{Sp}}
+\newcommand{\prhoms}[2]{\PR(#1, #2)_{Sp}}
+
+\newcommand{\biscat}[2]{\cat{Bs}(#1, #2)}
+
+\def\ltrocam{\fuc{xl}_{+}}  % \assoc inv . \swap . \assoc
+\def\rtrocam{\fuc{xr}_{+}}  
+\def\dtrocam{\fuc{m}_{+}}  
+\def\ltroca{\fuc{xl}}  % \assoc inv . \swap . \assoc
+\def\rtroca{\fuc{xr}}  
+\def\dtroca{\fuc{m}}  
+\def\troca{\fuc{x}}  
+
+\def\ainv#1{\overline{#1}}                   %  
+\def\aconv#1{#1^{\circ}}                     %  
+
+
+%-----
+\def\oculos{\mathbf{\bigcirc\!\! \frown\!\! \bigcirc}}
+\def\ferramentas{\stackrel{\mathbf{\doublecap}}{\bigbox\!\!\bigbox}}
+\newcommand{\adec}[3]{#1 \stackrel{#2}\longrightarrow #3}
+
+\def\tim{\fuc{T}}
+\def\att{\fuc{at}}
+\def\md{\fuc{m}}
+
+\def\cat#1{{\sf #1}}
+\def\setcat{\cat{Set}}
+
+\def\peqcaixa#1{\medskip
+  \fbox{\begin{minipage}{0.8\textwidth}\protect{#1}\end{minipage}}}
+
+\def\caixa#1{\medskip
+  \begin{center}
+  \fbox{\begin{minipage}{0.9\textwidth}\protect{#1}\end{minipage}}
+  \end{center}}
+
+\def\caixaaa#1{\medskip
+  \begin{center}
+  \fbox{\begin{minipage}{0.95\textwidth}\protect{#1}\end{minipage}}
+  \end{center}}
+\def\caixapeq#1{\medskip
+  \fbox{\begin{minipage}{0.6\textwidth}\protect{#1}\end{minipage}}}
+
+\def\caixavazia#1{\medskip
+  \begin{center}
+  \fbox{\begin{minipage}{0.9\textwidth}\protect{~\\[#1]}\end{minipage}}
+  \end{center}}
+
+\def\caixapeqvazia#1{\medskip
+  \fbox{\begin{minipage}{0.6\textwidth}\protect{~\\[#1]}\end{minipage}}}
+
+\def\lvazio{\mathbin{\fuc{nil}}}              % hd x
+\def\lcons{\mathbin{\fuc{cons}}} 
+\def\pair#1{\const{#1}}
+\def\triple#1{\const{#1}}
+\def\const#1{\mathopen{\langle}#1\mathclose{\rangle}} % <a,b,...z>
+
+\def\const#1{\mathopen{\langle}#1\mathclose{\rangle}} % <a,b,...z>
+\def\ainv#1{\overline{#1}}                   %  
+\def\aconv#1{#1^{\circ}}                     %  
+
+%------------
+
+\newcommand{\Gen}{\:\vartriangleleft\!\!\!-\!\!\!\!-\!\!\!-\:}
+\newcommand{\RGen}{\:-\!\!\!-\!\!\!\vartriangleright}
+\newcommand{\Agg}{\:\lozenge\!\!\!-\!\!\!\!-\!\!\!-\:}
+\newcommand{\Com}{\:\blacklozenge\!\!\!-\!\!\!\!-\!\!\!-\:}
+\newcommand{\Ass}{\:-\!\!\!-\!\!\!-\!\!\!-\:}
+\newcommand{\Assc}[1]{\frac{\ \ \ \ }{#1}}
+\newcommand{\M}[1]{{\mathcal S}[\![#1]\!]}
+\newcommand{\interpret}[1]{[\![#1]\!]}
+%\newcommand{\deff}{\stackrel{\Delta}{=}}
+\newcommand{\Ob}{\operatorname{Ob}}
+\newcommand{\Mor}{\operatorname{Mor}}
+\newcommand{\Rel}{\operatorname{Rel}}
+\newcommand{\Pred}{\operatorname{Pred}}
+%\newcommand{\id}{\operatorname{id}}
+\newcommand{\powerset}{\mathcal{P}}
+\newcommand{\transition}[3]{#1 \, \stackrel{#2}{\rightarrow}\, #3}
+\newcommand{\infer}{\vdash}
+%\newcommand{\next}{\bigcirc}
+\newcommand{\previous}{\bigcirc^{-}}
+%\newcommand{\until}{\mathcal{U}}
+\newcommand{\since}{\mathcal{U}^{-}}
+\newcommand{\always}{\Box}
+\newcommand{\sometime}{\Diamond}
+\newcommand{\alwaysp}{\Box^{-}}
+\newcommand{\sometimep}{\Diamond^{-}}
+\newcommand{\refine}{\sqsubseteq}
+\newcommand{\choice}{[\!]}
+\newcommand{\synproduct}{\boxtimes}
+\newcommand{\spec}[1]{\frak {#1}}
+%\newcommand{\category}[1]{\mathbf {#1}}
+\newcommand{\restrict}[2]{{#1}\upharpoonright{#2}}
+\newcommand{\view}[2]{#1 \upharpoonleft #2}
+\newcommand{\exc}[2]{#1 \setminus #2}
+\newcommand{\excl}[2]{{#1}\downharpoonleft{#2}}
+\newcommand{\hiding}[2]{{#1}\downharpoonright{#2}}
+\newcommand{\bisimular}{\approx}
+\newcommand{\Inte}{\Bbb{Z}}
+\newcommand{\ccspec}{\Bbb{C}(\mathbf{Spec})}
+\newcommand{\Ot}{\Bbb O}
+\newcommand{\Type}{\Bbb T}
+\newcommand{\St}{\pmb {St}}
+\newcommand{\Var}{\mathbf{Var}}
+\newcommand{\patharrow}[1]{\overset{#1}{\rightsquigarrow}}
+\newcommand{\B}{\sf B}
+\newcommand{\single}{{\mathbf 1}}
+
+\def\bim{\fuc{B}}
+\def\abim#1{\aapf{\bim}{#1}}
+\def\atim#1{\aapf{\tim}{#1}}
+\def\bimm#1{\bim #1}
+
+\def\tim{\fuc{T}}
+\def\rim{\fuc{R}}
+\def\fim{\fuc{F}}
+\def\cid#1{\fuc{copy}_{#1}} 
+
+%------ Monads      -----------------------------------------%
+\def\bunit#1{\eta_{#1}}   % monad unit
+\def\bmul#1{\mu_{#1}}   % monad multi
+
+\def\onefuc{\fun{Id}}
+\def\IDf#1{\fun{Id}_{#1}}               %  funtor identidade
+%\def\idf#1{\blk{Id}_{#1}}               %  funtor identidade
+
+\def\iid#1{\id_{#1}}                     %  identitade default
+\def\id{\mathbin{\fuc{id}}}    
+
+\def\apf#1#2{#1\; #2}                   % func applic no () -- f a
+\def\appf#1#2{(#1\; #2)}                   % func applic with () -- (f a)
+\def\aapf#1#2{#1 #2}                   % func applic no () -- f a
+\def\aappf#1#2{(#1 #2)}                   % func applic with () -- (f a)
+\def\appff#1#2{#1 (#2)}                   % func applic with () -- f(a)
+
+
+%------ Componentes      -----------------------------------------%
+
+% iniciais e terminais
+
+\def\final#1{\omega_{#1}}
+\def\initial#1{\alpha_{#1}}
+
+\def\ialg#1{\mu_{#1}}
+\def\fcoalg#1{\nu_{#1}}
+
+% operadores componentes
+
+\def\nilc{\fuc{nil}}                    
+\def\idle{\fuc{idle}}                    
+\def\inert#1{\fuc{inert}_{#1}}                    
+
+\def\delp#1{\delta #1}     % delay
+\def\exts#1#2{#1 \otimes #2}     % extensao do estado                   
+\def\extss#1#2{#2 \otimes #1}     % extensao do estado (left)                   
+\def\para{\mathbin{\boxtimes}}   % Mealy produto (sincrono)
+\def\parc{\mathbin{\boxplus}}    % Mealy soma
+\def\pars{\mathbin{\boxast}}     % Mealy misto
+\def\shk#1#2{\bigl(#1\bigr)_{#2}}            % separated hook direita
+\def\hk#1#2{#1\! \Lsh_{#2}}            % hook direita
+\def\hkespaco#1#2{#1 \Lsh_{#2}}            % hook direita
+%\def\feed#1{\Bigl( #1 \Bigr)\! \Lsh}            % hook direita
+\def\feed#1{#1 \Lsh}            % hook direita
+\def\kh#1#2{~_{#2}(#1)}           % hook esquerda
+
+\def\flift#1{\ulcorner #1 \urcorner}           % funcoes embb
+\def\singr#1{\lfloor #1 \rceil}           
+
+\def\pdiag{\bigtriangleup}      % diagonal em componentes
+\def\pcodiag{\bigtriangledown}    % codiagonal em componentes
+
+\def\cpret#1{~^{\blacktriangleright}#1}            % restricao direita
+\def\cprett#1{#1^{\blacktriangleright}}            % restricao direita
+
+\def\ana#1#2{\mathopen{[\!(}#1\mathclose{)\!]}_{#2}}
+%\def\sana#1{\mathopen{[\!(}#1\mathclose{)\!]}}
+\def\sana#1{\mathsf{\red bh(#1)}}
+\def\bh#1#2{\apf{\ana{#1}}{#2}}
+\def\BH{\cat{Bh}}
+
+\def\bismp#1{\sim{#1}}
+\def\bism{\mathbin{\sim}}
+\def\nbism{\overset{\bullet}{\sim}}
+\def\nobism{\mathbin{\not\!\sim}}
+
+
+\def\diag{\vartriangle}
+\def\codiag{\triangledown}
+\def\psplit#1#2{\mathopen{\langle}#1, #2\mathclose{\rangle}}
+
+
+\def\schoice#1#2#3{#1 ~_{#2}\!\diamond\,  #3}
+
+
+%--------------------
+%--- by jose 2016 ---
+%--------------------
+
+\newcommand{\wrap}[2][]{\begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
+\newcommand{\mwrap}[1]{\ensuremath{\begin{array}{@{}c@{}}#1\end{array}}}
+\newcommand{\myblock}[1]{\begin{beamercolorbox}[dp=1ex,center,rounded=true]%
+  {postit} {\large \textbf{#1}} \end{beamercolorbox}}%
+\def\trans#1{\xrightarrow{#1}}  % - a - > 
+\def\Trans#1{\stackrel{#1}{\Longrightarrow}} % =a=> 
+\newcommand{\transp}[2][35]{\color{fg!#1}#2}
+\newcommand{\transpt}[2][.35]{\tikz{\node[inner sep=1pt,fill opacity=0.5]{#2}}}
+
+\newcommand{\frsplit}[3][.48]{
+  \begin{columns}%[T] % align columns
+  \begin{column}{#1\textwidth} #2 \end{column} ~~~
+  \begin{column}{#1\textwidth} #3 \end{column} \end{columns}
+}
+\newcommand{\frsplitt}[3][.48]{
+  \begin{columns}[T] % align columns
+  \begin{column}{#1\textwidth} #2 \end{column} ~~~
+  \begin{column}{#1\textwidth} #3 \end{column} \end{columns}
+}
+% rules
+\newcommand{\typerule}[4][]{\ensuremath{\begin{array}[#1]{c}\textsf{\scriptsize ({#2})} \\#3 \\\hline\raisebox{-3pt}{\ensuremath{#4}}\end{array}}}
+\newcommand{\styperule}[3][]{\ensuremath{\begin{array}[#1]{c} #2 \\[0.5mm]\hline\raisebox{-4pt}{\ensuremath{#3}}\end{array}}}
+\newcommand{\shrk}{\vspace{-3mm}}
+
+
+\newcommand{\evm}[1]{\langle #1 \rangle\,}
+\newcommand{\alm}[1]{[#1]\,}
+
+\newcommand{\myparagraph}[1]{\medskip\noindent\textbf{#1}~~}
+
+
+
+% Listing
+% \lstset{%language=Java
+% %  ,basicstyle=\footnotesize
+%   ,columns=fullflexible %space-fexible
+%   ,keepspaces
+% %  ,numberstyle=\tiny
+%   ,mathescape=true
+%   ,showstringspaces=false
+% %  ,morekeywords={refract,global,local,on-change}
+%   ,morecomment=[l]{\%}
+%   ,commentstyle=\sl\ttfamily\color{gray}\scriptsize
+%   ,basicstyle=\ttfamily\relsize{-0.5}
+%   ,keywordstyle=\bf\color{red!50!blue}                % morekeywords={...} - not used
+% %  ,emphstyle=\it\sffamily\color{blue!80!black}
+%   ,emphstyle=\bfseries\itshape\color{blue!80!black}       % moreemph={...} - layer keywords
+%   ,emphstyle={[2]\itshape\color{red!70!black}}%\underbar} % moreemph={[2]...} - inner keywords
+%   ,stringstyle=\color{darkgreen}
+%   ,alsoletter={-,||,+,<>,&&,=>}
+%   ,literate=*{->}{{{\color{red!70!black}$\to$}}}{1}
+%              {.}{{{\color{red!70!black}.}}}{1}
+%              {+}{{{\color{red!70!black}+}}}{1}
+%              {*}{{{\color{red!70!black}*}}}{1}
+%              {\#}{{{\color{red!70!black}\#}}}{1}
+%              {&}{{{\color{red!70!black}\&}}}{1}
+%              {:=}{{{\color{red!70!black}:=}}}{1}
+%   ,emph={act,proc,init,sort,map,var,eqn}
+%   ,emph={[2]block,hide,comm,rename,allow,||,<>,sum,&&,=>}
+% %  ,emphstyle={[2]\color{blue}}2
+%   ,framerule=1pt
+%   ,backgroundcolor=\color{black!2}
+%   ,rulecolor=\color{black!30}
+%   ,frame=tblr
+%   ,xleftmargin=4pt
+%   ,xrightmargin=4pt
+%   ,captionpos=b
+% %  ,belowcaptionskip=\medskipamount
+%   ,aboveskip=\baselineskip
+%   ,floatplacement=htb
+% }
+% \lstdefinestyle{bash}{literate=*}
+% \newcommand{\code}[2][]{\lstinline[basicstyle=\ttfamily\relsize{-0.5},columns=fullflexible,keepspaces,#1]±#2±}
+% \newcommand{\mcode}[1]{\text{\code{#1}}}
+% \newcommand{\bash}[1]{\lstinline[basicstyle=\ttfamily\relsize{-0.5}\color{darkgreen},keywordstyle=\bf\sffamily\color{purple},columns=fullflexible,keepspaces,literate=*]±#1±}
+
+      

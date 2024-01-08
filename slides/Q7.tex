@@ -1,0 +1,250 @@
+%\documentclass[trans]{beamer}
+\documentclass{beamer}
+
+\usetheme{Singapore}
+\setbeamercovered{transparent}
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{src/prooftree}
+
+
+\usepackage{amssymb}
+\usepackage[all]{xy}
+\def\igual{=}
+\def\caixa#1{\medskip
+  \begin{center}
+  \fbox{\begin{minipage}{0.9\textwidth}\protect{#1}\end{minipage}}
+  \end{center}}
+
+\def\st{\, .\,}
+\def\hdd{\fun{hd}}
+\def\tll{\fun{tl}}
+\def\swap{\fuc{swap}}
+\def\twist{\fuc{twist}}
+  %------ using color ---------------------------------------------------------
+\usepackage{color}
+%input{rgb}
+\def\black{\color{black}}
+\def\blue{\color{blue}}
+\def\red{\color{red}}
+
+\def\true{\fuc{true}}
+\def\false{\fuc{false}}
+%\def\dimp{\mathbin{\Leftrightarrow}}
+\def\dimp{\mathbin{\equiv}}
+
+\def\imp{\mathbin{\Rightarrow}}
+\def\rimp{\mathbin{\Leftarrow}}
+\def\limp{\mathbin{\multimap}}
+\newcommand{\sse}{\mathbin{\, \operatorname{\textsf{iff}} \,}}
+\def\e{\mathbin{\wedge}}
+\def\ou{\mathbin{\vee}}
+
+
+  \input{src/newmacros.mac}
+
+
+\title{
+	Mathematics for Computer Science
+}
+\author{ Jos\'{e} Proen\c{c}a \& Alexandre Madeira\\ (slides from Luis Soares Barbosa)\\ ~}
+
+\institute{
+  \includegraphics[height=1.5cm]{img/HASLab-logo} \hspace{1cm}
+  \includegraphics[height=1.5cm]{img/um} \hspace{1cm}
+ % \includegraphics[height=1.5cm]{UNU-EGOV}
+ }
+%\institute{HASLab INESC TEC \& Universidade do Minho \& UNU-EGOV - United Nations University \\
+%Braga, Portugal}
+\date{
+\begin{tabular}{c}
+\\
+	\textbf{Functions \& Relations} \\  September-October,  2017
+\\
+\end{tabular}
+}
+
+\begin{document}
+
+\frame[plain]{\titlepage}
+
+
+
+\begin{slide}{Function}
+
+\begin{itemize}
+\item concept of function
+\item composition
+\item identity
+\item diagrams and laws
+\end{itemize}
+\end{slide}
+
+\begin{slide}{Injective and surjective functions}
+
+\begin{itemize}
+\item Intuition and examples
+\item Invertibility of a function
+\item Injectiveness $\dimp$ Left cancellation
+\item Sobrejectiveness $\dimp$ Right cancellation
+%\item Preservation and propagation laws
+\end{itemize}
+\end{slide}
+
+\begin{slide}{Bijections and isomorphism}
+
+\begin{itemize}
+\item Bijective functions
+%\item Laws
+\item Alternative characterisations of injective and sobrejective functions
+\end{itemize}
+\end{slide}
+
+\begin{slide}{Direct and inverse image of a function}
+
+\begin{itemize}
+\item Definitions
+\item Examples
+\item Laws
+\end{itemize}
+\end{slide}
+
+\begin{slide}{Isomorphism and cardinality}
+
+\begin{itemize}
+\item Definition: $\#A = \#B\; \dimp\; A \iso B$
+\item Denumerable, infinite denumerable and uncountable sets; basic examples and results
+\item Isomorphic sets
+\item Fundamental constructions on sets: Cartesian product ($A \times B$) , disjoint union ($A + B$) and function spaces ($B^A$)
+\end{itemize}
+\end{slide}
+
+\begin{slide}{From functions to relations}
+
+\begin{itemize}
+\item (Total) functions: $\fdec{f}{A}{B}$
+\item Partial functions: $\pdec{f}{A}{B}  \; \iso\; \fdec{f_{\bot}}{A}{B + \SING}$
+\item Relations:  $R \subseteq A \times B  \; \iso\; \fdec{f_R}{A}{\pow(B)}$
+\end{itemize}
+\end{slide}
+
+\begin{slide}{Relations}
+
+\begin{itemize}
+\item concept of relation
+\item composition \textcolor{blue}{(with diagrammatic notation)}:\\
+\textcolor{blue}{\begin{equation*}
+R\comp S = \{(x,y): \exists z \text{ such that } (x,z)\in R \text{ and } (z,y)\in S\}
+\end{equation*}}
+\item composition is  monotonic:
+\begin{equation*}
+R \subseteq S\; \e\; T \subseteq U\; \; \imp\;\;
+        (R \comp  T) \subseteq (S \comp U)
+\end{equation*}
+
+\item identity and co-reflexives
+\item diagrams and laws
+\end{itemize}
+\end{slide}
+
+\begin{slide}{Relations}
+
+\begin{block}{Converse}
+\begin{align*}
+\aconv{X} \subseteq Y\; & \equiv\; X \subseteq \aconv{Y} & & \text{\fbox{$\aconv{~}$-universal}}
+%\label{rel:conv}
+\\
+R \subseteq S\;  &\equiv\; \aconv{R} \subseteq \aconv{S} &
+ &  \text{($\aconv{~}$-monotonicity)} \label{rel:cmonooo}\\
+\aconv{\text{$\aconv{R}$}} \; & \dimp \; R & & \text{($\aconv{~}$-involution)} %\label{rel:cinv}
+\\
+% \aconv{(R \comp S)}\; & =\; \aconv{S} \comp \aconv{R} & &
+%  \text{($\aconv{~}$-contravariance)} \label{rel:contra}\\
+\aconv{(R \cap S)}\; & \dimp\; \aconv{R} \cap \aconv{S} &
+ &  \text{($\cap$,$\aconv{~}$-distributivity)} %\label{rel:dist1}
+\end{align*}
+\end{block}
+\end{slide}
+
+
+
+
+\begin{slide}{Relations}
+
+\begin{block}{Kernel and Image}
+  For a relation $\adec{A}{R}{B}$:
+\begin{align*}
+\adec{A}{\ker R}{A} & \; \; \text{share same image under $R$}\; \; &
+    \ker R \deff  R \comp \aconv{R} %\label{rel:ker}
+    \\
+\adec{B}{\img{R}}{B} & \; \; \text{are images of same point under $R$}\; \; &
+    \img{R} \deff \aconv{R} \comp R %\label{rel:img}
+\end{align*}
+
+\noindent
+Properties:\\
+\begin{align*}
+R \subseteq S\;  & \imp\;  \ker R \subseteq \ker S %\label{rel:ker1}
+\\
+R \subseteq S\; &  \imp\;  \img R \subseteq \img S %\label{rel:ker2}
+\end{align*}
+\end{block}
+\end{slide}
+
+
+\begin{slide}{Relations}
+
+\begin{block}{Classification}
+\begin{eqnarray*}
+  \name{reflexive}        \mbox{iff~}\; \iid{A} \subseteq R \\
+  \name{coreflexive}      \mbox{iff~}\; R \subseteq \iid{A} \\
+  \name{transitive}       \mbox{iff~}\; R \comp R \subseteq R \\
+  \name{anti-symmetric}   \mbox{iff~}\; R \cap \aconv{R} \ \subseteq \iid{A} \\
+  \name{symmetric}        \mbox{iff~}\; R = \aconv{R} \label{rel:sym} \\
+  \name{connected}        \mbox{iff~}\; R \cup \aconv{R} = A \times A
+   \label{rel:con}
+\end{eqnarray*}
+\end{block}
+\end{slide}
+
+\begin{slide}{Relations}
+
+\begin{block}{Classification}
+\begin{itemize}
+\item  \textbf{Preorders} are reflexive and transitive relations.
+\item  \textbf{Partial} orders are anti-symmetric preorders
+\item \textbf{Linear} or \textbf{total} orders are connected partial orders
+\item  \textbf{Equivalences} are symmetric preorders
+
+\item \textbf{Entire or Total} relations: $\; \id \subseteq \ker{R}$
+\item \textbf{Simple or Functional} relations: $\; \img{R} \subseteq \id$
+\end{itemize}
+\end{block}
+\end{slide}
+
+\begin{slide}{Back to functions}
+
+\begin{block}{Classification}
+\textbf{Functions} are both simple and entire relations:
+\begin{eqnarray*}
+        \underbrace{id \subseteq f \comp \aconv{f}}_{\mbox{entire}}
+&\wedge&
+        \underbrace{\aconv{f}\comp f  \subseteq id}_{\mbox{simple}}
+\end{eqnarray*}
+\begin{description}
+\item[Surjectiveness]: $\; \aconv{R}$ entire
+\item[Injectiveness]: $\; \aconv{R}$ simple
+\end{description}
+
+\begin{description}
+\item[$R$ entire and injective]: $\; \ker{R} = \id$
+\item[$R$ simple and surjective]: $\; \img{R} = \id$
+\item[$f$ bijective]: $\; \ker{R} = \id$ and $\img{R} = \id$
+\end{description}
+\end{block}
+\end{slide}
+
+
+\end{document}
+
+I

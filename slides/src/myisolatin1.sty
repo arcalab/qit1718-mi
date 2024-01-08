@@ -1,0 +1,16 @@
+%----------------- Importing/modifying isolatin1 -------------------------------
+\usepackage{isolatin1}
+\catcode170=13  \def^^aa{${\kern-.1em}^{\mbox{\scriptsize a}}$}      % 170 '252, "aa
+\catcode172=13  \def^^ac{{\neg}}      % 172 '254, "ac
+%catcode174=13  \def^^ae{\copyright{}}%
+\catcode174=13  \def^^ae{\mathbin\leftarrow}
+\catcode176=13  \def^^b0{^\circ}      % 176 '260, "b0  ?? \No
+%catcode176=13  \def^^b0{^{\mbox{\tiny $\cup$}}} % à la Backhouse 
+\catcode178=13  \def^^b2{{}^2}      % 178, '262, "b2
+\catcode181=13  \def^^b5{\mu}				% 181, '265, "b5
+\catcode183=13  \def^^b7{\comp}     % 183, '267, "b7
+\catcode186=13  \def^^ba{${\kern-.1em}^{\mbox{\scriptsize o}}$}      % 186, '272, "ba
+\catcode215=13  \def^^d7{\times}% 215, '327, "d7
+\@ifundefined{lguill}{\def^^ab{``}}{\def^^ab{\lguill}}
+\@ifundefined{rguill}{\def^^bb{''}}{\def^^bb{\rguill}}
+%-------------------------------------------------------------------------------

@@ -7,16 +7,3 @@
 *.snm
 *.synctex.gz
 *.toc
-slides/Q1.tex
-slides/Q2.tex
-slides/Q3.tex
-slides/Q4.tex
-slides/Q5.tex
-slides/Q6.tex
-slides/Q7.tex
-slides/Q8.tex
-slides/*.jpg
-slides/*.mac
-slides/*.sty
-slides/fields.pdf
-slides/HASLab-logo.pdf

@@ -1,0 +1,327 @@
+%\documentclass[trans]{beamer}
+\documentclass{beamer}
+
+\usetheme{Singapore}
+\setbeamercovered{transparent}
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{src/prooftree}
+\usepackage[all]{xy}
+%\input{cores.mac}
+%\def\bblue#1{\dkb{#1}}
+\def\igual{=}
+\def\caixa#1{\medskip
+  \begin{center}
+  \fbox{\begin{minipage}{0.9\textwidth}\protect{#1}\end{minipage}}
+  \end{center}}    
+
+\def\st{\, .\,}
+\def\hdd{\fun{hd}}
+\def\tll{\fun{tl}}
+\def\swap{\fuc{swap}}
+\def\twist{\fuc{twist}}
+  %------ using color ---------------------------------------------------------
+\usepackage{color}
+%input{rgb}
+\def\black{\color{black}}
+\def\blue{\color{blue}}
+\def\red{\color{red}}
+
+\def\true{\fuc{true}}
+\def\false{\fuc{false}}
+%\def\dimp{\mathbin{\Leftrightarrow}}
+\def\dimp{\mathbin{\equiv}}
+
+\def\imp{\mathbin{\Rightarrow}}
+\def\rimp{\mathbin{\Leftarrow}}
+\def\limp{\mathbin{\multimap}}
+\newcommand{\sse}{\mathbin{\, \operatorname{\textsf{iff}} \,}}
+\def\e{\mathbin{\wedge}}
+\def\ou{\mathbin{\vee}}
+
+
+  \input{src/newmacros.mac}
+
+
+\title{
+	Mathematics for Computer Science
+}
+\author{ Jos\'{e} Proen\c{c}a \& Alexandre Madeira\\ (slides from Luis Soares Barbosa)\\ ~}
+
+\institute{
+  \includegraphics[height=1.5cm]{img/HASLab-logo} \hspace{1cm}
+  \includegraphics[height=1.5cm]{img/um} \hspace{1cm}
+ % \includegraphics[height=1.5cm]{UNU-EGOV}
+ }
+%\institute{HASLab INESC TEC \& Universidade do Minho \& UNU-EGOV - United Nations University \\
+%Braga, Portugal}
+\date{
+\begin{tabular}{c}
+\\
+	\textbf{Set theory} \\  September-October,  2017
+\\
+\end{tabular}
+}
+
+\begin{document}
+
+\frame[plain]{\titlepage}
+
+
+
+\begin{slide}{Basic concepts}
+
+\begin{itemize}
+\item Definition by \dkb{enumeration} and \dkb{comprehension}
+$$ \setdef{E(x)}{x{:}X \e R}$$
+yields the set of values that result from evaluating $E[x := v]$ in the state for each value $v \in X$ such that $R[x := v]$ holds.
+% The notation (similar to the one used for quantifiers) is often simplified to $\setdef{E(x)}{x{:}X \e R}$
+\item Set \dkb{membership} and set \dkb{equality}
+\begin{align*}
+\text{(membership)} && &\\
+&&& \hspace{-1cm} y \in \setdef{E(x)}{x {:} X \e R} \dimp \rcb{\exists}{x{:}X}{R}{y = E(x)}\\
+\text{(extensionality)} && & S =T \; \dimp\; \rcbforall{x{:}X}{}{x \in S \dimp x \in T}
+\end{align*}
+\end{itemize}
+\end{slide}
+
+\begin{slide}{Basic concepts}
+
+\begin{itemize}
+\item Sets and predicates (\dkb{characteristic predicate})
+\begin{align*}
+\text{(characteristic)} && & y \in \setdef{x}{R} \dimp R[x:= y]\\
+\end{align*}
+\end{itemize}
+\end{slide}
+
+
+\begin{slide}{Operations on sets}
+
+\begin{align*}
+\text{(cardinal)} && & \#S= \rcb{\Sigma}{x{:}X}{X \in S}{1}\\
+\text{(subset)} && & S \subseteq T \dimp \rcb{\forall}{x{:}X}{x \in S}{x \in T}\\
+\text{(complement)} && & x \in \overline{S} \dimp x \not\in S\\
+\text{(union)} && & x \in S \cup T \dimp x \in S \ou x \in T\\
+\text{(intersection)} && & x \in S \cap T \dimp x \in S \e x \in T\\
+\text{(difference)} && & x \in S - T \dimp x \in S \e x \not\in T\\
+\text{(powerset)} && & S \in \pow T \dimp S \subseteq T\\
+\end{align*}
+\end{slide}
+
+
+
+\begin{slide}{Distributed operations on sets}
+
+\begin{align*}
+\text{$\bigcup$} && & (\pow(X), \cup,\emptyset )\; \text{is an Abelian monoid}\\
+\text{$\bigcap$} && & (\pow(X),\cap,UNIVERSE)\; \text{is an Abelian monoid}\\
+\end{align*}
+\end{slide}
+
+\begin{slide}{Predicates and sets revisited}
+
+\fbox{Exercise: point out the duality!}
+
+\vspace{1cm}
+
+\begin{align*}
+\text{(implication vs subset)} && & \setdef{x}{P} \subseteq  \setdef{x}{Q} ~~\dimp~~  \rcb{\forall}{x{:}X}{}{P \imp Q}\\
+\end{align*}
+
+\end{slide}
+
+
+% \begin{slide}{Axiom of choice}
+% There exists a function $\fdec{\mathsf{choice}}{\pow X}{X}$ such that for any nonempty set $S$, $\mathsf{choice}(S) \in S$
+% \vspace{1cm}
+% \end{slide}
+
+\begin{slide}{Paradoxes in set theory}
+
+$$ S = \setdef{x}{x \not \in x}$$
+\vspace{0.5cm}
+
+
+
+i.e. the set of all sets which do not contain themselves as elements: \dkb{$S \in S \dimp S \not\in S$}
+
+\vspace{1cm}
+
+\fbox{Parodox of Zermelo-Russell (1901)}
+\begin{itemize}
+\item Variants (e.g. the barber paradox; \dkb{\emph{this statement is false}}), etc.
+\item self-referencial phenomena vs \dkb{types}
+\end{itemize}
+\end{slide}
+
+\end{document}
+\begin{slide}{Further structures}
+\begin{itemize}
+\item \dkb{bags} (or \dkb{multisets})
+\item \dkb{sequences} (or \dkb{lists})
+\end{itemize}
+\end{slide}
+
+
+
+
+\begin{slide}{Types}
+
+... as formalization of the \dkb{domains of discourse}
+
+\begin{itemize}
+\item Examples: $x : \N$, $p : \B$, $\mathsf{table}: Att_1 \times Att_2 \times Att_3$
+\item Place additional restrictions on the definition of  textual substitution (in $E [x:=F]$ $x$ and $F$ must have the same type) and equality.
+\item Main issue in \dkb{programming languages}: from \dkb{untyped} to \dkb{strongly typed} languages (in which a type is assigned to each expression by  syntactic rules)
+\item overloading, polymorphism and subtyping
+\end{itemize}
+\end{slide}
+
+
+
+\begin{slide}{Quantification}
+
+$$
+\forall_{x:\N} \st \mathsf{even}(x) \imp \mathsf{odd}(x+1)
+$$
+or
+$$
+\exists_{x:\N} \st (12 < x \leq 999) \imp \mathsf{prime}(x)
+$$
+or
+$$
+\forall_{x:\N} \st (\exists_{y:\N} \st (y \geq 2 \e y \neq x) \imp (x/y = 0)) \imp \neg \mathsf{prime}(x)
+$$
+
+
+
+\begin{itemize}
+\item free variables and substitution!
+\end{itemize}
+\end{slide}
+
+
+\begin{slide}{Quantification}
+
+\begin{block}{A handier notation}
+
+$$
+\rcbforall{x:\N}{\mathsf{even}(x)}{\mathsf{odd}(x+1)}
+$$
+or
+$$
+\rcbexistsp{x:\N}{12 < x \leq 999}{\mathsf{prime}(x)}
+$$
+or
+$$
+\rcbforall{x:\N}{\rcbexistsp{y:\N}{y \geq 2 \e y \neq x}{\mathsf{rem}(x,y) = 0}}{\neg \mathsf{prime}(x)}
+$$
+\end{block}
+\end{slide}
+
+\begin{slide}{Going generic}
+
+$$
+\rcb{\Sigma}{i:\N}{1<i<100}{i^2}
+$$
+vs
+$$\Sigma_{i=1}^{100} \, i^2$$
+
+\begin{block}{In general}
+
+$$
+\rcb{\Theta}{x{:}X}{R}{P}
+$$
+to express: \dkb{apply $\theta$ to the values $P$ computed for all $x$ in $X$ satisfying $R$}, providing $P$ is of type $M$  and $(M,\theta,u)$  forms a \dkb{monoid}.
+\end{block}
+\end{slide}
+
+\begin{slide}{Going generic}
+
+\begin{block}{Some general rules for $(M,\theta,u)$}
+
+\begin{align*}
+\text{(empty range)} && & \rcb{\Theta}{x{:}X}{\false}{P} = u\\
+\text{(one point)} && & \rcb{\Theta}{x{:}X}{x =E}{P} = P[x:=E] \\
+\text{(distributivity)} && & \rcb{\Theta}{x{:}X}{R}{P} \, \theta\,  \rcb{\Theta}{x{:}X}{R}{Q} = \\ &&& \hspace{1cm} \rcb{\Theta}{x{:}X}{R}{P \theta Q}\\
+\text{(range split)} && & \rcb{\Theta}{x{:}X}{R \ou S}{P} = \\ &&& \hspace{1cm}\rcb{\Theta}{x{:}X}{R}{P} \, \theta\, \rcb{\Theta}{x{:}X}{S}{P} \\
+\text{(interchange)} && & \rcb{\Theta}{x{:}X}{R}{\rcb{\Theta}{y:Y}{Q}{P}} = \\ &&& \hspace{1cm}  \rcb{\Theta}{y:Y}{Q}{\rcb{\Theta}{x{:}X}{R}{P}}\\
+\text{(nesting)} && & \rcb{\Theta}{x{:}X, y:Y}{R \e Q}{P} = \\ &&& \hspace{1cm}  \rcb{\Theta}{x{:}X}{R}{\rcb{\Theta}{y:Y}{Q}{P}}
+\end{align*}
+\end{block}
+\end{slide}
+
+
+
+\begin{slide}{Universal and existential quantification}
+
+\begin{block}{}
+\begin{itemize}
+\item $\forall$ is \dkb{generalised conjunction}: $(\B, \e, \true)$ forms a monoid.
+\item $\exists$ is \dkb{generalised disjunction}: $(\B, \ou, \false)$ forms a monoid.
+\end{itemize}
+\end{block}
+\end{slide}
+
+
+\begin{slide}{Some rules for $\forall$ and $\exists$}
+
+... on top of the general rules above:
+\vspace{1cm}
+\begin{align*}
+\text{(trading)} && & \rcbforall{x{:}X}{R}{P} = \rcbforall{x{:}X}{}{R \imp P}\\
+\text{($\ou$ dist over $\forall$)} && & P \ou \rcbforall{x{:}X}{R}{Q} = \rcbforall{x{:}X}{R}{P \ou Q}\\
+\text{(de Morgan)} && & \rcbexistsp{x{:}X}{R}{\neg P} = \neg \rcbforall{x{:}X}{R}{P}
+\end{align*}
+
+\begin{block}{Recall \dkb{de Morgan laws} from propositional calculus:}
+$$
+\neg (p \e q) \dimp (\neg p \ou \neg q)
+$$
+and
+$$
+\neg (p \ou q) \dimp (\neg p \e \neg q)
+$$
+\end{block}
+\end{slide}
+
+
+\begin{slide}{Predicate calculus and theories}
+\begin{itemize}
+\item The pure predicate calculus includes the axioms of propositional calculus, together with the axioms for quantifications
+\item The inference rules  are Substitution, Transitivity, Leibniz and its variant for quantification
+\item In the pure predicate calculus, the relation symbols are uninterpreted (except for equality), so the logic provides no specific rules for manipulating them.
+\item With these symbols uninterpreted, we can develop general rules for manipulation that are sound no matter what meanings we ascribe to the function symbols. Thus, the pure predicate calculus is sound in all domains that may be of interest.
+\end{itemize}
+\end{slide}
+
+\begin{slide}{Predicate calculus and theories}
+Adding axioms that give meanings to some of the (uninterpreted) relational symbols gives rise to a \dkb{theory}
+
+\begin{itemize}
+\item The theory of integers (with $+,-,*, \leq$, etc and the usual axioms)
+\item The theory of sets (with $\cup, \cap, \in, \subseteq$, etc and the usual axioms)
+\end{itemize}
+\end{slide}
+
+
+\begin{slide}{Modelling}
+\begin{itemize}
+\item Modelling a statement in the \dkb{propositional calculus} requires associating boolean variables with the subpropositions of the statement.
+\item Modelling a statement in the \dkb{predicate calculus} requires defining predicate symbols and other functions tocapture relationships between variables.
+\end{itemize}
+
+\fbox{Examples}
+\begin{itemize}
+\item \emph{Every student took one mathematics class and passed one programming}
+\item \emph{Every student who passed a mathematics class with grade 15 or higher got a diploma of merit}
+\end{itemize}
+
+\end{slide}
+
+
+
+
+
+\end{document}

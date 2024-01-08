@@ -1,0 +1,685 @@
+%\documentclass[trans]{beamer}
+\documentclass{beamer}
+
+\usetheme{Singapore}
+\setbeamercovered{transparent} 
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{src/prooftree}
+\usepackage[all]{xy}
+%\input{cores.mac}
+%\def\bblue#1{\dkb{#1}}
+\def\igual{=}
+\def\caixa#1{\medskip
+  \begin{center}
+  \fbox{\begin{minipage}{0.9\textwidth}\protect{#1}\end{minipage}}
+  \end{center}}
+  
+\def\hdd{\fun{hd}}
+\def\tll{\fun{tl}}
+\def\swap{\fuc{swap}}
+\def\twist{\fuc{twist}}
+  %------ using color ---------------------------------------------------------
+\usepackage{color}
+%input{rgb}
+\def\black{\color{black}}
+\def\blue{\color{blue}}
+\def\red{\color{red}}
+
+\def\true{\fuc{true}}
+\def\false{\fuc{false}}
+%\def\dimp{\mathbin{\Leftrightarrow}}
+\def\dimp{\mathbin{\equiv}}
+
+\def\imp{\mathbin{\Rightarrow}}
+\def\rimp{\mathbin{\Leftarrow}}
+\def\limp{\mathbin{\multimap}}
+\newcommand{\sse}{\mathbin{\, \operatorname{\textsf{iff}} \,}}
+\def\e{\mathbin{\wedge}}
+\def\ou{\mathbin{\vee}}
+
+  
+  \input{src/newmacros.mac}
+  
+  
+\title{
+	Mathematics for Computer Science
+}
+\author{ Jos\'{e} Proen\c{c}a \& Alexandre Madeira\\ (slides from Luis Soares Barbosa)\\ ~}
+
+\institute{
+  \includegraphics[height=1.5cm]{img/HASLab-logo} \hspace{1cm}
+  \includegraphics[height=1.5cm]{img/um} \hspace{1cm} 
+ % \includegraphics[height=1.5cm]{UNU-EGOV}
+ }
+%\institute{HASLab INESC TEC \& Universidade do Minho \& UNU-EGOV - United Nations University \\
+%Braga, Portugal}
+\date{
+\begin{tabular}{c}
+\\
+	\textbf{What is a logic?} \\ October,  2017
+\\
+\end{tabular}
+}
+
+\begin{document}
+
+\frame[plain]{\titlepage}
+
+
+
+\begin{slide}{Logical system}
+
+\begin{itemize}
+\item a set of symbols,
+\item a set of formulas constructed from the symbols,
+\item a set of distinguished formulas called axioms, and
+\item a set of inference rules.
+\end{itemize}
+\end{slide} 
+
+\begin{slide}{Logical system}
+
+\begin{block}{Notes}
+\begin{itemize}
+\item The set of formulas is called the \dkb{language} of the logic.
+\item The language is defined syntactically; there is no notion of meaning or semantics in a logic per se.
+\item  \dkb{Inference rules} specify how formulas are derived from other formulas.
+\item A formula is a  \dkb{theorem} of the logic if it is an axiom or if it can be generated from the axioms and already proved theorems using the inference rules. 
+\item  A  \dkb{proof} that a formula is a theorem is an argument that shows how the inference rules are used to generate the formula.
+\end{itemize}
+\end{block}
+
+
+\end{slide} 
+
+\begin{slide}{Logical system}
+
+\begin{block}{Consistency}
+A logic is consistent if at least one of its formulas is a
+theorem and at least one is not; otherwise, the logic is inconsistent.
+
+Adding $\true = \false$ as an axiom makes the logic inconsistent.
+\end{block}
+\end{slide} 
+
+\begin{slide}{This course examples}
+
+\begin{block}{Propositional logic}
+\end{block}
+
+
+\begin{block}{Predicate logic}
+\end{block}
+\end{slide} 
+
+\begin{slide}{A less common example}
+
+\begin{description}
+\item[Symbols:] $A, B, -$
+\item[Formulas:] sequences of the form $a A bB c$, where $a,b,c$ denote finite sequeces of zero or more dashes
+\item[Axioms:]
+\begin{enumerate}
+\item $-A-B--$
+\item $--A-B---$
+\end{enumerate}
+\item[Inference rule:]~\\
+\begin{center}
+\begin{prooftree}
+aAbBc,   dAeBf
+\justifies
+a d A b e B c f
+\thickness=0.08em
+\end{prooftree}
+\end{center}
+\end{description}
+
+\end{slide} 
+
+
+\begin{slide}{Interpretations}
+\begin{itemize}
+\item  The formulas of a logic are intended to be statements about some \dkb{domain of discourse}, that is, some area of interest. We give the formulas a meaning with respect to this domain by defining which formulas are true statements and which are false statements about the domain.
+\item An \rdb{interpretation} assigns meaning to the operators, constants, and variables of a logic.
+\item Because a logic is purely a syntactic object, it \dkb{may have more than one} interpretation.
+\item In a logic in which formulas have variables, \dkb{an interpretation associates a value} with each variable.  Conventionally, we split such an interpretation into two parts: one gives a fixed meaning to the operators and constants; the other supplies values for variables, i.e. denotes a state.
+\end{itemize}
+\end{slide} 
+
+\begin{slide}{A less common example}
+
+\begin{description}
+\item[\underline{Interpretation A:}] A formula $a A b B c$ is mapped to \rdb{$\#a + \#b = \#c$} , \\{~\!\!\!\!}where $\#x$ denotes the number of dashes in sequence~$x$
+\item[\underline{Interpretation B:}] A formula $a A b B c$ is mapped to  %$\true$  iff
+\rdb{$\#a + \#b \leq \#c$}
+\end{description}
+
+~\\[1mm]
+
+\begin{block}{Play!}
+Compute the value  of $-A-B---$ in both interpretations.
+\end{block}
+\end{slide} 
+
+
+
+
+
+\begin{slide}{Satisfiability and validity}
+\begin{itemize}
+\item Let S be a set of interpretations for a logic and F be a formula of the logic. F is \dkb{satisfiable} (under S ) iff at least one interpretation of S maps F to $\true$.
+\item  F is \dkb{valid} (under S ) iff every interpretation in S maps F to $\true$.
+\item An interpretation is a \rdb{model} for a logic iff every theorem is mapped to $\true$ by the interpretation. 
+\end{itemize}
+\end{slide} 
+
+\begin{slide}{Soundness and completeness }
+\begin{itemize}
+\item A logic is \dkb{sound} iff every theorem is valid. Soundness means that the theorems are true statements about the domain of discourse. 
+\item A logic is \dkb{complete} iff every valid formula is a theorem. Completeness means that every valid formula can be proved.
+\end{itemize}
+
+A sound and complete logic allows exactly the valid formulas to be proved. Failure to prove that a formula is a theorem in such a logic cannot be attributed to weakness of the logic. Unfortunately, many domains of discourse of concern to us  do not have sound and complete axiomatizations. This is a consequence of \dkb{Godel's incompleteness theorem}, which states that no formal logical system that axiomatizes arithmetic can be both sound and complete. 
+\end{slide} 
+
+
+
+
+\end{document}
+
+
+
+\begin{slide}{Equational reasoning}
+\begin{block}{Equivalence}
+\begin{align*}
+\text{($\dimp$ associativity)} && & ((p \dimp q) \dimp r) \dimp (p \dimp (q \dimp r)\\
+\text{($\dimp$ commutativity)} &&  & p \dimp q \dimp q \dimp p \\
+\text{($\dimp$ identity)} &&  & \true \dimp q \dimp q
+\end{align*}
+\end{block}
+\end{slide} 
+
+\begin{slide}{Equational reasoning}
+\begin{block}{Negation}
+\begin{align*}
+\text{($\false$ definition)} && & \false \dimp \neg \true\\
+\text{($\neg$ distributivity over $\dimp$)} &&  & \neg(p \dimp q) \dimp \neg p \dimp q\\
+\text{($\not\equiv$ definition)} &&  & (p \not\equiv q) \dimp \neg(p \dimp q)
+\end{align*}
+\end{block}
+\end{slide} 
+
+\begin{slide}{Equational reasoning}
+\begin{block}{Disjunction}
+\begin{align*}
+\text{($\ou$ commutativity)} && & p \ou q \dimp q \ou p\\
+\text{($\ou$ associativity)} && &(p \ou q) \ou r \dimp p\ou (q \ou r)\\
+\text{($\ou$ idempotency)} && & p \ou p \dimp p\\
+\text{($\ou$ distributivity over $\dimp$)} &&  & p \ou (q \dimp r) \dimp (p\ou q) \dimp (p \ou r)  \\
+\text{(excluded middle)} &&  & p \ou \neg p
+\end{align*}
+\end{block}
+
+
+\end{slide} 
+
+\begin{slide}{Equational reasoning}
+\begin{block}{Conjunction}
+\begin{align*}
+\text{(golden rule)} && & p \e q \dimp p \dimp q \dimp p \ou q\\
+\end{align*}
+\end{block}
+
+
+\end{slide} 
+
+
+\begin{slide}{Equational reasoning}
+\begin{block}{Implication}
+\begin{align*}
+\text{($\imp$ definition)} && & p \imp q \dimp p \ou q \dimp q\\
+\text{(consequence)} && &p \rimp q \dimp q \imp p\\
+\end{align*}
+\end{block}
+
+
+\end{slide} 
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+\begin{slide}{Expressions}
+\begin{itemize}
+\item textual substitution: $E[x := E']$
+~\\
+
+
+\begin{center}
+\begin{prooftree}
+E
+\justifies
+E[x := E']
+\thickness=0.08em
+\using
+{\text{(substitution)}}
+\end{prooftree}
+\end{center}
+
+
+\item Equality:
+Evaluation of the expression X = Y in a state yields the value true if expressions X and Y have the same value and yields false if they have different values. This characterization of equality is in terms of expression evaluation. For reasoning about expressions, a more useful characterization would be a set of laws that can be used to show that two expressions are equal, without calculating their values. 
+
+\end{itemize}
+
+\end{slide} 
+
+\begin{slide}{Science vs Engineering}
+\begin{description}
+\item[reflexivity:] $X = X$ \vspace{5mm}
+\item[symmetry:] $(X = Y) = (Y = X)$ \vspace{5mm}
+\item[transitivity:] 
+
+%\begin{center}
+\begin{prooftree}
+X = Y , Y= Z
+\justifies
+X = Z
+\thickness=0.08em
+%\using
+%{\text{(substitution)}}
+\end{prooftree}
+%\end{center}
+\vspace{5mm}
+
+\item[Leibniz:] 
+
+%\begin{center}
+\begin{prooftree}
+X = Y 
+\justifies
+E[z := X] = E[z := Y] 
+\thickness=0.08em
+%\using
+%{\text{(substitution)}}
+\end{prooftree}
+%\end{center}
+
+
+\end{description}
+\end{slide} 
+
+
+\begin{slide}{Equality}
+\begin{block}{Functions}
+\begin{itemize}
+\item A function is a rule for computing a value from another value 
+\item application (can be defined in terms of textual substitution)
+$$f (x) = f\, x = E[z := X]$$
+for $f = E$
+The Leibniz rule links equality and function application:
+~\\
+
+\begin{prooftree}
+X = Y 
+\justifies
+f\, X = f\, Y
+\thickness=0.08em
+\using
+{\text{(Leibniz)}}
+\end{prooftree}
+
+\item composition  (types)
+\end{itemize}
+\end{block}
+\end{slide} 
+
+
+\begin{slide}{Boolean expressions}
+
+\caixa{Boole's great contribution was an algebraic basis for logic, something Leibniz had dreamed about 200 years earlier and that De Morgan was unable to devise. \\
+In \emph{The Laws of Thought}Boole's aim was to \emph{"investigate the fundamental laws ... by which reasoning is performed, ... give expression to them in the language of a Calculus, and upon this foundation ... establish the Science of Logic ... "}.
+}
+ \end{slide} 
+ 
+ \begin{slide}{Boolean expressions}
+
+\begin{itemize}
+\item Syntax: Boolean connectives
+\item Semantics: interpretation; truth tables
+\item Equality versus equivalence
+\begin{itemize}
+\item $=$ has a \dkb{conjunctional} flavour: \\ $b = c = d$ is an abbreviation for  $b = c \wedge c = d$
+\\ Therefore $b = c = d$ and $(b = c) = d$ are different.
+\item $\dimp$ is \dkb{associative} (thus not conjunctional)
+\end{itemize}
+\end{itemize}
+
+\end{slide} 
+
+
+ \begin{slide}{Boolean expressions}
+
+\begin{eqnarray*}
+& & \false = \false = \true
+%
+\just \igual{ $=$ is abbreviates a conjunction }
+%
+(\false = \false) \e (\false = \true)
+%
+\just \igual{ evaluate both $=$ }
+%
+\true \e \false
+%
+\just \igual{ evaluation $\e$ }
+%
+\false
+%
+\end{eqnarray*}
+
+\end{slide} 
+
+
+\begin{slide}{Boolean expressions}
+
+\begin{eqnarray*}
+& & \false \dimp \false \dimp \true
+%
+\just \igual{ evaluates first $\dimp$ }
+%
+\true \dimp \true
+%
+\just \igual{ evaluate $\dimp$ }
+%
+\true \end{eqnarray*}
+
+Treat the conjunctional use of $=$ and other operators as syntactic sugar, i.e. as an extension to the basic definition of expressions to make writing some expressions easier. Whenever an expression that contains this syntactic sugar is to be evaluated or manipulated, first remove the syntactic sugar.
+\end{slide} 
+
+
+ \begin{slide}{Boolean expressions: Satisfiability and validity}
+
+\begin{itemize}
+\item A Boolean expression  is satisfied in a state if its value is true in that state; 
+\item it  is satisfiable if there is a state in which it is satisfied;
+\item it  is valid if it is satisfied in every state;
+\item  A valid boolean expression is called a tautology
+\end{itemize}
+
+\end{slide} 
+
+\begin{slide}{Boolean expressions: Duality}
+
+The dual $E_D$ of a boolean expression $E$ is built from $E$ by interchanging occurrences of $\true$ and $\false$, $\e$ and $\ou$, $\equiv$ and $\not\equiv$, $\imp$ and $\not \rimp$, and $\rimp$ and $\not \rimp$,
+
+\begin{block}{Duality meta-theorem}
+
+\begin{itemize}
+\item $E$ is valid iff $\neg E_D$ is valid
+\item $E \dimp F$ is valid iff $E_D\dimp F_D$ is valid
+\end{itemize}
+\end{block}
+\end{slide} 
+
+\begin{slide}{Modelling natural language propositions}
+
+
+\begin{block}{Exercises}
+
+If Superman were able and willing to prevent evil, he would do so. If Superman were unable to prevent evil, he would be im- potent; if he were unwilling to prevent evil, he would be malevolent. Superman does not prevent evil. If Superman exists, he is neither impotent nor malevolent. Therefore, Superman does not exist.
+\end{block}
+\end{slide} 
+
+
+
+\end{document}
+
+
+\section{Models}
+
+%\begin{slide}{Why do we need formal models?}
+% \begin{center}
+%  \includegraphics[scale=0.95]{c1}
+% \end{center}
+% \end{slide} 
+%
+%\begin{slide}{Why do we need formal models?}
+%Notice the "magic words"\\
+%\begin{itemize}
+%\item much \textbf{deeper understanding} of the systems we invent
+%\item greater ability to make \textbf{predictions}
+%\item about the behavior of  \textbf{complex}, connected, and interacting systems
+%\item better  \textbf{tools}
+%\end{itemize}
+%\end{slide} 
+
+
+\begin{slide}{... on second thoughts}
+IT became ubiquitous to modern life long before a \textbf{solid scientific methodology},
+ let alone formal foundations, has been put forward\\~\\
+ 
+ \pause
+Formal modelling aims at lifting to Informatics the  \dkb{\textbf{problem-solving strategy}} one got used to from
+school physics:
+\vspace{0.1cm}
+\begin{itemize}
+\item \dgold{understand} the problem
+\item \dgold{build} a mathematical \dkb{model} of it
+\item \dgold{animate}  and \dgold{reason} in such a model
+\item \dgold{upgrade} the model whenever necessary
+\item \dgold{calculate} a \dkb{solution} and \dgold{implement} it
+\end{itemize}
+\end{slide}
+
+
+\begin{slide}{Models}
+\begin{itemize}
+\item introduce \textbf{rigour} (in which other engineering would a warranty be replaced by a disclaimer?)
+\item develop \textbf{abstraction} skills
+\item help developers to \textbf{manage complexity} and assess alternative designs in early stages
+\end{itemize}
+\begin{flushright}
+ \dkb{\emph{A good model guides your thinking, a bad one wraps it}\\ Brian Marick}
+\end{flushright}
+\end{slide}
+
+
+\begin{slide}{Models}
+\begin{block}{Example}
+Mary has twice as many apples as John. Mary throws half her apples away, because they are rotten, and John eats one of his. Mary still has twice as many apples as John. How many apples did Mary and John have initially?
+\end{block}
+\end{slide}
+
+\begin{slide}{Models}
+\begin{block}{Example}
+\begin{equation*}
+\left\{
+  \begin{array}{l}
+    m  =   2 \comp j \\
+    m/2  =  2 \comp (j-1) \\
+  \end{array}
+\right.
+\end{equation*}
+\end{block}
+\end{slide}
+
+
+\begin{slide}{Models}
+\begin{itemize}
+\item 
+A mathematical model may be more understandable, concise, precise, or rigorous than an informal description written in a natural language.
+\item
+Answers to questions about an object or phenomenon can often be computed directly using a mathematical model of the object or phenomenon.
+\item
+Mathematics provides methods for reasoning: for manipulating expressions, for proving properties from and about expressions, and for obtaining new results from known ones. This reasoning can be done without knowing or caring what the symbols being manipulated mean.
+\end{itemize}
+\end{slide}
+
+
+\section{Rigorous reasoning}
+
+\begin{slide}{Reasoning}
+
+Aims at
+\begin{itemize}
+\item calculating solutions (implementations)
+\item producing evidence (proof, i.e. precise, honest explanations)
+\end{itemize}
+
+\begin{center}
+\fbox{Logic is the glue that binds together methods of reasoning }
+\end{center}
+\end{slide}
+
+\begin{slide}{Reasoning}
+\begin{itemize}
+\item
+IT-driven societies  require from people a higher degree of \dkb{mathematical
+literacy}, i.e.
+\begin{itemize}
+\item the ability to reason in terms of abstract models 
+\item and effectively use of logical arguments and mathematical calculation
+\item ... in daily 
+business practice
+\end{itemize}
+\item  High-valued programmers are heavy users of \dgold{logic}:
+%which entails the need for \dkb{earlier} introduction and \bblue{explicit} use of logic in middle and high school
+%~\\
+%\item
+ but a heavy use of logic also requires more \dgold{concise} ways of expression and
+notations amenable to formal, \dgold{systematic manipulation}
+\end{itemize}
+\end{slide}
+
+
+
+
+
+\begin{slide}{Proofs}
+\small
+
+{\bf Ubiquitous }
+\begin{itemize}
+\item certification of critical systems 
+\item e-commerce security
+\item automatic contracts in global infra-structures (cf, \dgold{proof-carrying code})
+\end{itemize}
+\vspace{0.5cm}
+
+{\bf However }
+\begin{itemize}
+\item  proofs are usually omitted from schoolroom practice
+\item when present, they are non-systematic, informal, and seen as difficult
+\end{itemize}
+
+\end{slide}
+
+\begin{slide}{What we see}
+\begin{itemize}
+\item 
+IT-driven societies  require from people a higher degree of \dkb{mathematical
+literacy}, i.e.
+\begin{itemize}
+\item the ability to reason in terms of abstract models 
+\item and effectively use of logical arguments and mathematical calculation
+\item ... in daily 
+business practice
+\end{itemize}
+\item  High-valued programmers are heavy users of \dgold{logic}:
+%which entails the need for \dkb{earlier} introduction and \bblue{explicit} use of logic in middle and high school
+%~\\
+%\item
+ but a heavy use of logic also requires more \dgold{concise} ways of expression and
+notations amenable to formal, \dgold{systematic manipulation}
+\end{itemize}
+\end{slide}
+
+
+
+\begin{slide}{Calculational proofs}
+
+Example: \dgold{is $\log(2) + \log(7)\; <\; \log(3) + \log(5)$?}
+\vspace{0.5cm}
+
+The \dkb{classical} proof:   \dkb{verify the hypothesis} 
+% $\log(2) + \log(7)\; <\; \log(3) + \log(5)$ and then verifies 
+
+
+\begin{quote}
+\begin{tabular}{llr}
+(1) \hspace{0.2cm} & \text{ function $\log$ is strictly increasing} \\
+(2) \hspace{0.2cm} & $\log(x \times y) = \log(x) + \log(y)$ \\
+(3) \hspace{0.2cm} & $14 < 15 $ \\
+(4) \hspace{0.2cm} & $14 = 2 \times 7$ \text{and} $15 = 3 \times 5$\\
+(5) \hspace{0.2cm} & $\log(14) < \log(15)$ &  \text{by (1), (3)}\\
+(6) \hspace{0.2cm} & $\log(2) + \log(7) < \log(3) + \log(5)$ &  \text{by (2), (4), (5)} \\
+\end{tabular}
+\end{quote}
+\end{slide}
+
+\begin{slide}{Calculational proofs}
+
+The \dgold{classical} proof:
+\begin{itemize}
+\item easy to follow
+\item  but  provides poor  intuition on the problem 
+\item hard memorize or reproduce
+\item most probably it was not made, originally, by the
+order in which it is presented
+\item  fails to attract students enthusiasm
+\end{itemize}
+\end{slide}
+
+\begin{slide}{Calculational proofs}
+
+
+The \dgold{calculational} proof:
+\begin{eqnarray*}
+& & \log(2) + \log(7) \; \; \square \; \;  \log(3) + \log(5)
+%
+\just \igual{ function  $\log$ distributes over multiplication }
+%
+\log(2 \times 7)  \; \; \square \;  \; \log(3 \times 5)
+%
+\just \igual{ routine arithmetic }
+%
+\log(14)   \; \; \square \; \;  \log(15)
+%
+\just \igual{ $14 < 15$ and function $\log$ is strictly increasing }
+%
+\; \square \: \; \; \;  \text{is}\: \; \; \; \;  <
+%
+\end{eqnarray*}
+\end{slide}
+
+
+\begin{slide}{Calculational proofs}
+
+The \dgold{calculational} proof:
+\begin{itemize}
+\item The starting point is not an hypothesis to verify,  but the problem itself. 
+\item The proof starts by identifying an unknown $\square$
+ which stands for an order relation 
+ \item and 
+ proceeds by the identification and application of whatever known properties are
+ useful in its determination
+ \item  being essentially syntax driven it builds intuition and meaning.
+\end{itemize}
+\end{slide}
+
+
+
+
+
+
+\end{document}
+
+I

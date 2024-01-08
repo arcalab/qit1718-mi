@@ -1,0 +1,600 @@
+%\documentclass[trans]{beamer}
+\documentclass{beamer}
+
+\usetheme{Singapore}
+\setbeamercovered{transparent} 
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{src/prooftree}
+
+\usepackage[all]{xy}
+
+\def\igual{=}
+\def\caixa#1{\medskip
+  \begin{center}
+  \fbox{\begin{minipage}{0.9\textwidth}\protect{#1}\end{minipage}}
+  \end{center}}
+  
+\def\hdd{\fun{hd}}
+\def\tll{\fun{tl}}
+\def\swap{\fuc{swap}}
+\def\twist{\fuc{twist}}
+  %------ using color ---------------------------------------------------------
+\usepackage{color}
+%input{rgb}
+\def\black{\color{black}}
+\def\blue{\color{blue}}
+\def\red{\color{red}}
+
+\def\true{\fuc{true}}
+\def\false{\fuc{false}}
+%\def\dimp{\mathbin{\Leftrightarrow}}
+\def\dimp{\mathbin{\equiv}}
+
+\def\imp{\mathbin{\Rightarrow}}
+\def\rimp{\mathbin{\Leftarrow}}
+\def\limp{\mathbin{\multimap}}
+\newcommand{\sse}{\mathbin{\, \operatorname{\textsf{iff}} \,}}
+\def\e{\mathbin{\wedge}}
+\def\ou{\mathbin{\vee}}
+
+  
+  \input{src/newmacros.mac}
+  
+  
+\title{
+	Mathematics for Computer Science
+}
+\author{ Jos\'{e} Proen\c{c}a \& Alexandre Madeira\\ (slides from Luis Soares Barbosa)\\ ~}
+
+\institute{
+ \includegraphics[height=1.5cm]{img/HASLab-logo} \hspace{1cm}
+ \includegraphics[height=1.5cm]{img/um} \hspace{1cm} 
+ % \includegraphics[height=1.5cm]{UNU-EGOV}
+ }
+%\institute{HASLab INESC TEC \& Universidade do Minho \& UNU-EGOV - United Nations University \\
+%Braga, Portugal}
+\date{
+\begin{tabular}{c}
+\\
+	\textbf{Propositional Calculus} \\  September-October,  2017
+\\
+\end{tabular}
+}
+
+\begin{document}
+
+\frame[plain]{\titlepage}
+
+\section{The calculus}
+
+\begin{slide}{Calculus}
+
+
+
+\begin{block}{Boolean expressions can be defined by}
+\begin{itemize}
+\item how they are evaluated (models)
+\item how they can be manipulated (proofs)
+\end{itemize}
+\end{block}
+
+\caixa{A calculus is a method or process of reasoning by calculation with symbols. }
+\end{slide} 
+
+\begin{slide}{Equational reasoning}
+\begin{description}
+\item[Axioms] i.e. boolean expressions that define basic manipulative properties of boolean operators
+\item[Inference rules]
+~\\
+
+\begin{center}
+\begin{prooftree}
+P=Q, Q=R
+\justifies
+P = R
+\thickness=0.08em
+\using
+{\text{(transitivity)}}
+\end{prooftree}
+\end{center}
+\vspace{5mm}
+\begin{center}
+\begin{prooftree}
+P= Q 
+\justifies
+E[z := P] = E[z := Q] 
+\thickness=0.08em
+\using
+{\text{(Leibniz)}}
+\end{prooftree}
+\end{center}
+\vspace{5mm}
+
+\begin{center}
+\begin{prooftree}
+P
+\justifies
+P[z := Q] 
+\thickness=0.08em
+\using
+{\text{(substitution)}}
+\end{prooftree}
+\end{center}
+\vspace{5mm}
+
+where $P,Q, ...$ are arbitrary Boolean expressions, and $p,q,r,z,...$ are Boolean variables.
+\end{description}
+
+\end{slide} 
+
+
+
+\begin{slide}{Equational reasoning}
+\begin{block}{Equivalence}
+\begin{align*}
+\text{($\dimp$ associativity)} && & ((p \dimp q) \dimp r) ~~\dimp~~ (p \dimp (q \dimp r))\\
+\text{($\dimp$ commutativity)} &&  & p \dimp q ~~\dimp~~ q \dimp p \\
+\text{($\dimp$ identity)} &&  & \true ~~\dimp~~ q \dimp q
+\end{align*}
+\end{block}
+\end{slide} 
+
+
+\begin{slide}{Equational reasoning}
+\begin{block}{Negation}
+\begin{align*}
+\text{($\false$ definition)} && & \false ~~\dimp~~ \neg \true\\
+\text{($\neg$ distributivity over $\dimp$)} &&  & \neg(p \dimp q) ~~\dimp~~ \neg p \dimp q\\
+\text{($\not\equiv$ definition)} &&  & (p \not\equiv q) ~~\dimp~~ \neg(p \dimp q)
+\end{align*}
+\end{block}
+
+\begin{block}{\dkb{De Morgan laws} -- from the duality meta-theorem}
+\begin{align*}
+\text{($\e$ negation)} && \neg (p \e q) &\dimp (\neg p \ou \neg q)
+\\
+\text{($\ou$ negation)} && \neg (p \ou q) &\dimp (\neg p \e \neg q)
+\end{align*}
+\end{block}
+\end{slide} 
+
+\begin{slide}{Equational reasoning}
+\begin{block}{Disjunction}
+\begin{align*}
+\text{($\ou$ commutativity)} && & p \ou q ~~\dimp~~ q \ou p\\
+\text{($\ou$ associativity)} && &(p \ou q) \ou r ~~\dimp~~ p\ou (q \ou r)\\
+\text{($\ou$ idempotency)} && & p \ou p ~~\dimp~~ p\\
+\text{($\ou$ distributivity over $\dimp$)} &&  & p \ou (q \dimp r) ~~\dimp~~ (p\ou q) \dimp (p \ou r)  \\
+\text{(excluded middle)} &&  & p \ou \neg p ~~\dimp~~ \true
+\end{align*}
+\end{block}
+
+
+\end{slide} 
+
+\begin{slide}{Equational reasoning}
+\begin{block}{Conjunction}
+\begin{align*}
+\text{(golden rule)} && & p \e q ~~\dimp~~ p \dimp q \dimp p \ou q\\
+\end{align*}
+\end{block}
+\end{slide}
+% ("p false" means "q any")
+% ("p true" means "q must be true")
+%  --- p -> q
+
+\begin{slide}{Equational reasoning}
+\begin{block}{Implication}
+\begin{align*}
+\text{($\imp$ definition)} && & p \imp q ~~\dimp~~ p \ou q \dimp q\\
+\text{(consequence)} && &p \rimp q ~~\dimp~~ q \imp p\\
+\end{align*}
+\end{block}
+\end{slide} 
+
+\section{Examples}
+ \begin{slide}{Example}
+\begin{center}
+\fbox{Theorem: $\neg p \dimp q \dimp p \dimp \neg q$}
+\end{center}
+\begin{eqnarray*}
+& & \neg p \dimp q \dimp p \dimp \neg q
+%
+\just \igual{ $\dimp$ associativity, commutativity }
+%
+(\neg p \dimp p) \dimp (q \dimp \neg q)
+%
+\just \igual{ $\neg$ distributivity over $\dimp$ }
+%
+\neg (p \dimp p) \dimp \neg (q \dimp q)
+%
+\just \igual{ $\dimp$ identity, $\false$ definition}
+%
+\false \dimp \false
+%
+\just \igual{ $\dimp$ identity}
+%
+\true
+\end{eqnarray*}
+
+\end{slide} 
+
+
+\begin{slide}{Example}
+\begin{center}
+\fbox{Theorem: $p \ou  \true \dimp \true$}
+\end{center}
+\begin{eqnarray*}
+& & p \ou  \true
+%
+\just \igual{ $\dimp$ identity }
+%
+p \ou  (p \dimp p)
+%
+\just \igual{ $\ou$ distributivity over $\dimp$ }
+%
+p \ou p \dimp p \ou p
+%
+\just \igual{ $\dimp$ identity}
+%
+\true
+\end{eqnarray*}
+
+\end{slide} 
+
+
+\begin{slide}{Example}
+\begin{center}
+\fbox{Theorem: $p \ou q \dimp p \ou \neg q \dimp p$}
+\end{center}
+\begin{eqnarray*}
+& & p \ou q \dimp p \ou \neg q \dimp p
+%
+\just \igual{ $\ou$ distributivity over $\dimp$ }
+%
+p \ou  (q \dimp \neg q) \dimp p
+%
+\just \igual{ $\neg$ distributivity over $\dimp$ }
+%
+p \ou \false \dimp p
+%
+\just \igual{ theorem - exercise below}
+%
+p \dimp p
+%
+\just \igual{ $\dimp$ identity }
+%
+\true
+\end{eqnarray*}
+
+\end{slide} 
+
+
+\begin{slide}{Example}
+\begin{center}
+\fbox{Theorem: $p \e (\neg p \ou q) \dimp (p \e q)$}
+\end{center}
+\begin{eqnarray*}
+& &p \e (\neg p \ou q)
+%
+\just \igual{ golden rule }
+%
+p \dimp \neg p \ou q \dimp p \ou \neg p \ou q
+%
+\just \igual{ $\dimp$ associativity, excluded middle }
+%
+p \dimp \neg p \ou q \dimp \true \ou q
+%
+\just \igual{ theorem above: $p \ou \true \dimp \true$}
+%
+p \dimp \neg p \ou q
+%
+\just \igual{ theorem above: $p \ou q \dimp p \ou \neg q \dimp p$}
+%
+p \dimp p \ou q \dimp q
+%
+\just \igual{ golden rule }
+%
+p \e q
+\end{eqnarray*}
+
+\end{slide} 
+
+
+\begin{slide}{Example}
+\begin{center}
+\fbox{Theorem: $(p \e q) \e r \dimp p \e (q \e r) $}
+\end{center}
+\begin{eqnarray*}
+& & (p \e q) \e r 
+%
+\just \igual{ golden rule }
+%
+(p \dimp q \dimp p \ou q) \e r
+%
+\just \igual{ golden rule }
+%
+(p \dimp q \dimp p \ou q) \dimp r \dimp ((p \dimp q \dimp p \ou q) \ou r)
+%
+\just \igual{ $\ou$ distributivity over $\dimp$ }
+%
+p \dimp q \dimp p \ou q \dimp r \dimp p \ou r \dimp q\ou r \dimp p \ou q \ou r
+%
+\just \igual{ $\dimp$ associativity, commutativity}
+%
+p \dimp q \dimp r \dimp p \ou q  \dimp p \ou r \dimp q\ou r \dimp p \ou q \ou r
+%
+\end{eqnarray*}
+
+\end{slide} 
+
+
+\begin{slide}{Example}
+
+\textbf{(cont)}
+\begin{eqnarray*}
+& & p \dimp q \dimp r \dimp p \ou q  \dimp p \ou r \dimp q\ou r \dimp p \ou q \ou r 
+%
+\just \igual{ golden rule }
+%
+(q \e r) \dimp p \dimp p \ou q  \dimp p \ou r \dimp p \ou q \ou r 
+%
+\just \igual{ $\ou$ distributivity over $\dimp$ }
+%
+(q \e r) \dimp p \dimp p \ou q  \dimp p \ou (r \dimp q \ou r)
+%
+\just \igual{ $\ou$ distributivity over $\dimp$ }
+%
+(q \e r) \dimp p \dimp p \ou (q \dimp r \dimp q \ou r)
+%
+\just \igual{  golden rule }
+%
+(q \e r) \dimp p \dimp p \ou  (q \e r)
+%
+\just \igual{  golden rule }
+%
+p \e (q \e r)
+%
+\end{eqnarray*}
+
+\end{slide} 
+
+\begin{slide}{Example}
+\begin{center}
+\fbox{Theorem: $p \imp q \dimp p \e q \dimp p$}
+\end{center}
+\begin{eqnarray*}
+& & p \imp q \dimp p \e q \dimp p
+%
+\just \igual{ $\imp$ definition }
+%
+p \ou q \dimp q \dimp p \e q\dimp p
+%
+\just \igual{ $\dimp$ associativity, commutativity}
+%
+(p \dimp q \dimp p \ou q) \dimp p \e q
+%
+\just \igual{ golden rule }
+%
+ p \e q \dimp p \e q
+%
+\end{eqnarray*}
+
+\end{slide} 
+
+\begin{slide}{Example (another proof technique)}
+\begin{center}
+\fbox{Theorem: $(p \imp q) \imp p \ou r \imp q\ou r$}
+\end{center}
+\begin{eqnarray*}
+& & p \ou r \imp q\ou r
+%
+\just \igual{ $\imp$ definition }
+%
+ p \ou r \ou q \ou r \dimp q \ou r
+%
+\just \igual{ $\ou$ idempotency, $\dimp$ associativity, commutativity}
+%
+ p \ou  q \ou r \dimp q \ou r
+%
+\just \igual{ $\ou$ distributivity over $\dimp$ }
+%
+ (p \ou q \dimp q) \ou r
+%
+\just \rimp{ weakning: $ p \imp p \ou  q$  }
+%
+ p \ou q \dimp q
+ %
+\just \igual{ $\imp$ definition }
+%
+p \imp q
+%
+\end{eqnarray*}
+
+\end{slide} 
+
+\begin{slide}{Exercises}
+\begin{itemize}
+\item $p \ou \false \dimp p$
+\item $(p \imp q) \e (q \imp p) \dimp p \dimp q$
+\item $(p \imp q) \dimp  \neg p \ou q$
+\item $(\neg p \e \neg q)  \ou (q \e p) \dimp p \dimp q$
+\end{itemize}
+\end{slide} 
+
+\begin{slide}{Resolution}
+\small
+\begin{center}
+\fbox{Theorem: $(p \imp q) \e (q \imp p) \dimp p \dimp q$}
+\end{center}
+\begin{eqnarray*}
+& & (p \imp q) \e (q \imp p)
+%
+\just \igual{ $\imp$ alternative definition }
+%
+ (\neg p \ou q) \e (\neg q \ou p)
+ %
+\just \igual{ $\e,\ou$ distributivity}
+%
+( (\neg p \ou q) \e \neg q) \ou  (\neg p \ou q) \e p)
+%
+\just \igual{ $\e,\ou$ distributivity}
+%
+ (\neg p \e \neg q) \ou (q \e \neg q) \ou (\neg p \e p) \ou (q \e p)
+ %
+\just \igual{$a \e \neg a \dimp \false$, $a \ou \false \dimp a$}
+%
+(\neg p \e \neg q)  \ou (q \e p)
+%
+\just \igual{ Theorem: $(\neg p \e \neg q)  \ou (q \e p) \dimp p \dimp q$}
+%
+p \dimp q
+%
+\end{eqnarray*}
+\end{slide} 
+
+\begin{slide}{Resolution}
+\small
+\begin{center}
+\fbox{Theorem: $(\neg p \e \neg q)  \ou (q \e p) \dimp p \dimp q$}
+\end{center}
+\begin{eqnarray*}
+& & (\neg p \e \neg q)  \ou (q \e p) 
+%
+\just \igual{ golden rule }
+%
+ (\neg p \dimp \neg q \dimp (\neg p \ou \neg q))   \ou (q \e p) 
+%
+\just \igual{ $\ou$ distributivity}
+%
+((\neg p \dimp \neg q) \ou (p \e q)) \dimp ((\neg p \ou \neg q) \ou (p \e q))
+%
+\just \igual{ de Morgan }
+%
+ ((\neg p \dimp \neg q) \ou (p \e q)) \dimp (\neg (p \e q) \ou (p \e q))
+%
+\just \igual{excluded middle, $\dimp $ identity}
+%
+ (\neg p \dimp \neg q) \ou (p \e q)
+%
+\just \igual{ $\ou$ distributivity}
+%
+(\neg p \ou (p \e q)) \dimp (\neg q \ou (p \e q)) 
+%
+\end{eqnarray*}
+\end{slide} 
+
+\begin{slide}{Resolution}
+\small
+(\textbf{cont})
+\begin{eqnarray*}
+& &(\neg p \ou (p \e q)) \dimp (\neg q \ou (p \e q))  
+%
+\just \igual{ $\e,\ou$ distributivity}
+%
+(\neg p \ou p) \e (\neg p \ou q) \dimp (\neg q \ou p) \e (\neg q \ou q)
+%
+\just \igual{excluded middle, $\true \e a \dimp a$}
+%
+ (\neg p \ou q) \dimp (\neg q \ou p)
+%
+\just \igual{theorem: $a \ou b \dimp a \ou \neg b \dimp a$}
+%
+ (\neg p \ou q) \dimp (q \ou p) \dimp p
+%
+\just \igual{ $\e,\ou$ distributivity}
+%
+q \dimp (p \ou \neg p) \dimp p
+%
+\just \igual{ excluded middle, $\dimp$ identity}
+%
+q  \dimp p
+%
+\end{eqnarray*}
+\end{slide} 
+
+
+\begin{slide}{Resolution}
+\small
+\begin{center}
+\fbox{Theorem: $\neg (p \e q)  \dimp \neg q \ou \neg p$}
+\end{center}
+\begin{eqnarray*}
+& & \neg (p \e q) 
+%
+\just \igual{ golden rule }
+%
+ \neg (q \dimp p \dimp p \ou q)
+%
+\just \igual{ $\neg$ distributivity }
+%
+ \neg q \dimp p \dimp p \ou q
+%
+\just \igual{ $a \ou \false \dimp a$}
+%
+\neg q \dimp p \ou \false \dimp p \ou q
+%
+\just \igual{ $\ou$ distributivity }
+%
+ \neg q \dimp  (\false \dimp q)  \ou p
+%
+\just \igual{$\neg a \dimp (\false \dimp a)$}
+%
+ \neg q  \dimp  \neg q  \ou p
+%
+\end{eqnarray*}
+\end{slide} 
+
+
+\begin{slide}{Resolution}
+\small
+(\textbf{cont})
+\begin{eqnarray*}
+& & \neg q  \dimp  \neg q  \ou p
+%
+\just \igual{ $a \ou \false \dimp a$}
+%
+\neg q \ou \false  \dimp  \neg q  \ou p
+%
+\just \igual{ $\ou$ distributivity}
+%
+\neg q \ou (\false \dimp p)
+%
+\just \igual{$\neg a \dimp (\false \dimp a)$}
+%
+\neg q \ou \neg p
+%
+\end{eqnarray*}
+\end{slide} 
+
+
+
+
+\begin{slide}{}
+  ~\\[-15mm]
+  \begin{align*}
+\text{($\dimp$ associativity)} && ((p \dimp q) \dimp r) &~~\dimp~~ (p \dimp (q \dimp r))\\
+\text{($\dimp$ commutativity)} &&  p \dimp q &~~\dimp~~ q \dimp p \\
+\text{($\dimp$ identity)} &&  \true &~~\dimp~~ q \dimp q\\
+\text{($\false$ definition)} && \false &~~\dimp~~ \neg \true\\
+\text{($\neg$ distributivity over $\dimp$)} &&  \neg(p \dimp q) &~~\dimp~~ \neg p \dimp q\\
+\text{($\not\equiv$ definition)} &&  (p \not\equiv q) &~~\dimp~~ \neg(p \dimp q)\\
+\text{($\e$ negation)} && \neg (p \e q) &~~\dimp~~ (\neg p \ou \neg q)\\
+\text{($\ou$ negation)} && \neg (p \ou q) &~~\dimp~~ (\neg p \e \neg q)\\
+\text{($\ou$ commutativity)} && p \ou q &~~\dimp~~ q \ou p\\
+\text{($\ou$ associativity)} && (p \ou q) \ou r &~~\dimp~~ p\ou (q \ou r)\\
+\text{($\ou$ idempotency)} && p \ou p &~~\dimp~~ p\\
+\text{($\ou$ distributivity over $\dimp$)} &&  p \ou (q \dimp r) &~~\dimp~~ (p\ou q) \dimp (p \ou r)  \\
+\text{(excluded middle)} &&  p \ou \neg p &~~\dimp~~ \true \\
+\text{(golden rule)} && p \e q &~~\dimp~~ p \dimp q \dimp p \ou q\\
+\text{($\imp$ definition)} && p \imp q &~~\dimp~~ p \ou q \dimp q\\
+\text{(consequence)} &&  p \rimp q &~~\dimp~~ q \imp p
+  \end{align*}
+\end{slide}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
